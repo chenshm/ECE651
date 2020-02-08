@@ -1,0 +1,33 @@
+stages:
+  - build
+  - test
+
+
+variables:
+  IMAGE: ${DOCKER_USER}/${DOCKER_REGISTRY}
+
+build:
+  stage: build
+  image: docker:19.03.1
+  services:
+    - docker:19.03.1-dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: "/certs"
+  script:
+    - echo $DOCKER_AUTH_CONFIG
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS 
+    - docker pull $IMAGE:latest || true
+    - docker build
+        --cache-from $IMAGE:latest
+        --tag $IMAGE:latest
+        --file ./Dockerfile
+        "."
+    - docker push $IMAGE:latest
+test:
+  stage: test
+  image: $IMAGE:latest
+  services:
+    - postgres:latest
+  script:
+    - python manage.py test
