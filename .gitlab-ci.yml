@@ -24,7 +24,7 @@ test_backend:
   stage: test_backend
   image: shimengchen/backend:latest
   script:
-    - python manage.py test
+    - python manage.py test --settings=hello_world.settings.development
 test_frontend:
   stage: test_frontend
   image: shimengchen/frontend:latest
