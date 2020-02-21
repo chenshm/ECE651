@@ -1,10 +1,8 @@
 stages:
   - build
-  - test
+  - test_backend
+  - test_frontend
 
-
-variables:
-  IMAGE: ${DOCKER_USER}/${DOCKER_REGISTRY}
 
 build:
   stage: build
@@ -15,19 +13,15 @@ build:
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: "/certs"
   script:
-    - echo $DOCKER_AUTH_CONFIG
-    - docker login -u $DOCKER_USER -p $DOCKER_PASS 
-    - docker pull $IMAGE:latest || true
-    - docker build
-        --cache-from $IMAGE:latest
-        --tag $IMAGE:latest
-        --file ./Dockerfile
-        "."
-    - docker push $IMAGE:latest
-test:
-  stage: test
-  image: $IMAGE:latest
-  services:
-    - postgres:latest
+    - docker build -t react_django_backend:latest backend
+    - docker build -t react_django_frontend:latest frontend
+test_backend:
+  stage: test_backend
+  image: react_django_backend:latest
   script:
     - python manage.py test
+test_frontend:
+  stage: test_frontend
+  image: react_django_frontend:latest
+  script:
+    - npm run test
