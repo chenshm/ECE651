@@ -16,8 +16,8 @@ build:
   script:
     - echo $DOCKER_AUTH_CONFIG
     - docker login -u $DOCKER_USER -p $DOCKER_PASS 
-    - docker build -t shimengchen/backend:latest backend
-    - docker build -t shimengchen/frontend:latest frontend
+    - docker build --cache-from shimengchen/backend:latest -t shimengchen/backend:latest backend
+    - docker build --cache-from shimengchen/frontend:latest -t shimengchen/frontend:latest frontend
     - docker push shimengchen/backend:latest
     - docker push shimengchen/frontend:latest
 test_backend:
