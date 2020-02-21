@@ -21,12 +21,6 @@ build_backend:
     - docker build --cache-from shimengchen/backend:latest -t shimengchen/backend:latest backend
     - docker run shimengchen/backend:latest python3 manage.py test --settings=hello_world.settings.development
     - docker push shimengchen/backend:latest
-    
-test_backend:
-  stage: test_backend
-  image: shimengchen/backend:latest
-  script:
-    - python3 ./backend/manage.py test --settings=hello_world.settings.development
 
 build_frontend:
   stage: build_frontend
@@ -41,9 +35,6 @@ build_frontend:
     - docker login -u $DOCKER_USER -p $DOCKER_PASS 
     - docker pull shimengchen/frontend:latest || true
     - docker build --cache-from shimengchen/frontend:latest -t shimengchen/frontend:latest frontend
+    - docker run shimengchen/frontend:latest npm run test
     - docker push shimengchen/frontend:latest
-test_frontend:
-  stage: test_frontend
-  image: shimengchen/frontend:latest
-  script:
-    - npm run test
+
