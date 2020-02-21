@@ -35,6 +35,6 @@ build_frontend:
     - docker login -u $DOCKER_USER -p $DOCKER_PASS 
     - docker pull shimengchen/frontend:latest || true
     - docker build --cache-from shimengchen/frontend:latest -t shimengchen/frontend:latest frontend
-    - docker run shimengchen/frontend:latest npm run test
+    - docker run shimengchen/frontend:latest npm run test --coverage
     - docker push shimengchen/frontend:latest
 
