@@ -13,15 +13,17 @@ build:
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: "/certs"
   script:
-    - docker build -t react_django_backend:latest backend
-    - docker build -t react_django_frontend:latest frontend
+    - docker build -t shimengchen/backend:latest backend
+    - docker build -t shimengchen/frontend:latest frontend
+    - docker push shimengchen/backend:latest
+    - docker push shimengchen/frontend:latest
 test_backend:
   stage: test_backend
-  image: react_django_backend:latest
+  image: shimengchen/backend:latest
   script:
     - python manage.py test
 test_frontend:
   stage: test_frontend
-  image: react_django_frontend:latest
+  image: shimengchen/frontend:latest
   script:
     - npm run test
