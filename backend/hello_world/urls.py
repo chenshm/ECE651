@@ -23,7 +23,9 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('todos.urls'),name="todos"),
-    url(r'^api/customers/$', views.customers_list),
-    url(r'^api/customers/(?P<pk>[0-9]+)$', views.customers_detail),
+    path('api/customers/',views.customers_list,name="customers_list"),
+    path('api/customers/<int:pk>',views.customers_detail,name="customers_detail"),
+    #url(r'^api/customers/$', views.customers_list),
+    #url(r'^api/customers/(?P<pk>[0-9]+)$', views.customers_detail),
     re_path(".*", TemplateView.as_view(template_name="index.html")),
 ]
