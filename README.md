@@ -31,3 +31,7 @@ Our website runs on the following software:
 * React
 * Node.js
 * SQLite
+# CI/CD
+* Currently, we rely on gitlab runner to do continuous Integration and Testing.
+* Manully deploy our website on the AWS EC2 server:
+[Website Link](http://ec2-18-188-108-51.us-east-2.compute.amazonaws.com:3000/)
