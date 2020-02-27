@@ -50,3 +50,26 @@ graph TB
   Reactcomponent[Render React component] --> SubGraph1[Send API request]
 end
 ```
+# Meeting log
+## Tuesday January 14th
+All of the team members share their ideas about the project. And we confirmed the direction of the project and some of the software component.  
+## Tuesday January 21th
+We begin to learn how to use Docker and Docker-compose to help us unify our development environment.And we also learn how to use Dockerhub repository to store our docker images.
+## Tuesday January 28th
+We begin to install gitlab runner on our machine and write the gitlab-ci script to configure continuous integration and testing based on gitlab runner.  
+## Tuesday February 4th
+We begin to learn html, css, js, react, and Django.  
+## Tuesday Feburary 11th
+we try to dockerize React and Django. And we also try different way to integrate frontend and backend:  
+1. Standalone React + Standalone Django
+1. Standalone Django + React as a SPA in a Django-App
+1. Standalone Django + Mix React into Django-Templates
+In the end, we choose to use the first way.  
+## Tuesday Feburary 18th
+we implement the minimum viable prototype which include following functions:
+1. create new items
+1. update existing items
+1. delete existing items
+1. list existing items
+# Tuesday Feburary 25th
+we try to test the mvp and do some code review.In addition, we discuss which feature we should implement at next iteration.  
