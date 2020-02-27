@@ -35,3 +35,18 @@ Our website runs on the following software:
 * Currently, we rely on gitlab runner to do continuous Integration and Testing.
 * Manully deploy our website on the AWS EC2 server:
 [Website Link](http://ec2-18-188-108-51.us-east-2.compute.amazonaws.com:3000/)
+# System Architecture
+```mermaid
+graph TB
+
+  SubGraph1[Send API request] --> SubGraph1Flow
+  subgraph "Backend"
+  SubGraph1Flow(Django_rest framework) --> n[Database]
+  end
+
+  subgraph "Frontend"
+  HTTPRequest[HTTP Request] --> Nodejs[Nodejs]
+  Nodejs[Node.js] -->  Reactcomponent[Render React component]
+  Reactcomponent[Render React component] --> SubGraph1[Send API request]
+end
+```
