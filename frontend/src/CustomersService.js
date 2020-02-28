@@ -1,33 +1,40 @@
 import axios from 'axios';
 const API_URL = 'http://localhost:8000';
-
+axios.defaults.headers.common['Authorization'] = `JWT ${localStorage.getItem('token')}` // for all requests
 export default class CustomersService{
 
     constructor(){}
 
 
     getCustomers() {
-        const url = `${API_URL}/api/customers/`;
-        return axios.get(url).then(response => response.data);
-    }  
+        //const url = `${API_URL}/api/customers/`;
+        //return axios.get(url).then(response => response.data);
+        return axios({
+            method: 'get',
+            url: `${API_URL}/api/customers/`,
+            headers: {
+                Authorization: `JWT ${localStorage.getItem('token')}`
+              },
+          }).then(response => response.data);
+        }   
     getCustomersByURL(link){
         const url = `${API_URL}${link}`;
-        return axios.get(url).then(response => response.data);
+        return axios.get(url,{ headers: {Authorization: `JWT ${localStorage.getItem('token')}`} }).then(response => response.data);
     }
     getCustomer(pk) {
         const url = `${API_URL}/api/customers/${pk}`;
-        return axios.get(url).then(response => response.data);
+        return axios.get(url,{ headers: {Authorization: `JWT ${localStorage.getItem('token')}`} }).then(response => response.data);
     }
     deleteCustomer(customer){
         const url = `${API_URL}/api/customers/${customer.pk}`;
-        return axios.delete(url);
+        return axios.delete(url,{ headers: {Authorization: `JWT ${localStorage.getItem('token')}`} });
     }
     createCustomer(customer){
         const url = `${API_URL}/api/customers/`;
-        return axios.post(url,customer);
+        return axios.post(url,customer,{ headers: {Authorization: `JWT ${localStorage.getItem('token')}`} });
     }
     updateCustomer(customer){
         const url = `${API_URL}/api/customers/${customer.pk}`;
-        return axios.put(url,customer);
+        return axios.put(url,customer,{ headers: {Authorization: `JWT ${localStorage.getItem('token')}`} });
     }
 }
