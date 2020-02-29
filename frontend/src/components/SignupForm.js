@@ -20,24 +20,38 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={e => this.props.handle_signup(e, this.state)}>
-        <h4>Sign Up</h4>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          value={this.state.username}
-          onChange={this.handle_change}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          value={this.state.password}
-          onChange={this.handle_change}
-        />
-        <input type="submit" />
-      </form>
+      <div class="card">
+        <article class="card-body">
+        <button onClick={() => this.props.display_form('login')} class="float-right btn btn-outline-primary">Login in</button>
+        <h4 class="card-title mb-4 mt-1">Sign up</h4>
+          <form onSubmit={e => this.props.handle_signup(e, this.state)}>
+            <div class="form-group">
+              <label htmlFor="username">Username</label>
+              <input 
+                name="username" 
+                class="form-control" 
+                placeholder="Username" 
+                type="text"         
+                value={this.state.username}
+                onChange={this.handle_change}/>
+            </div>
+            <div class="form-group">
+              <label htmlFor="password">Password</label>
+              <input 
+              name="password" 
+              class="form-control" 
+              placeholder="******" 
+              type="password"
+              value={this.state.password}
+              onChange={this.handle_change}
+            />
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block"> Sign up  </button>
+            </div> 
+          </form>
+        </article>
+      </div> 
     );
   }
 }
@@ -45,5 +59,6 @@ class SignupForm extends React.Component {
 export default SignupForm;
 
 SignupForm.propTypes = {
-  handle_signup: PropTypes.func.isRequired
+  handle_signup: PropTypes.func.isRequired,
+  display_form: PropTypes.func.isRequired
 };

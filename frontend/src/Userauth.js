@@ -3,17 +3,21 @@ import Nav from './components/Nav';
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import './Userauth.css';
-
+import Capp from './Capp';
 const API_URL = 'http://localhost:8000';
 
 class Userauth extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayed_form: '',
+      displayed_form: 'login',
       logged_in: localStorage.getItem('token') ? true : false,
       username: ''
     };
+    this.handle_login = this.handle_login.bind(this);
+    this.handle_logout = this.handle_logout.bind(this);
+    this.handle_signup = this.handle_signup.bind(this);
+    this.display_form = this.display_form.bind(this);
   }
 
   componentDidMount() {
@@ -72,7 +76,7 @@ class Userauth extends Component {
 
   handle_logout = () => {
     localStorage.removeItem('token');
-    this.setState({ logged_in: false, username: '' });
+    this.setState({ logged_in: false, username: '',displayed_form: 'login' });
   };
 
   display_form = form => {
@@ -85,30 +89,28 @@ class Userauth extends Component {
     let form;
     switch (this.state.displayed_form) {
       case 'login':
-        form = <LoginForm handle_login={this.handle_login} />;
+        form = <LoginForm handle_login={this.handle_login} display_form={this.display_form} />;
         break;
       case 'signup':
-        form = <SignupForm handle_signup={this.handle_signup} />;
+        form = <SignupForm handle_signup={this.handle_signup} display_form={this.display_form}/>;
         break;
       default:
         form = null;
     }
-
-    return (
-      <div className="Userauth">
-        <Nav
-          logged_in={this.state.logged_in}
-          display_form={this.display_form}
-          handle_logout={this.handle_logout}
-        />
-        {form}
-        <h3>
-          {this.state.logged_in
-            ? `Hello, ${this.state.username}`
-            : 'Please Log In'}
-        </h3>
-      </div>
-    );
+    if (this.state.logged_in){
+          return (
+            <div className="Userauth">
+              <Capp handle_logout={this.handle_logout}/>
+            </div>
+          );
+      }
+    else{
+        return (
+            <div className="Userauth">
+              {form}
+            </div>
+          );
+        }
   }
 }
 
