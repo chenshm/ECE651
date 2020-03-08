@@ -24,16 +24,16 @@ last name, phone number, password, e-mail, address and description
 ## <a name="intro">API</a>
 ### /api/customers/
 
-#### Function
-List all the customers in the database
-
 #### Request Method
 GET
+
+#### Function
+List all the customers in the database
 
 #### Parameter
 None
 
-#### Response
+#### Response Example
 ```
 {
     'data': {
@@ -68,6 +68,9 @@ None
 #### Request Method
 POST
 
+#### Function
+Create a new customer
+
 #### Parameter
 ```
 {
@@ -80,25 +83,32 @@ POST
 }
 ```
 
-#### Response
+#### Response Example
 None
 
 #### Possible Error State
 - 400 BAD REQUEST
 
-### /api/customers/pk
-#### Function
-Retrieve, update or delete a customer by id/pk.
+---
 
+### /api/customers/&lt;pk&gt;
 #### Request Method
 GET
 
-#### Parameter
-None
+#### Function
+Retrieve a customer by id/pk.
 
-#### Response
+#### Parameter
 ```
 {
+    'pk': 4,
+}
+```
+
+#### Response Example
+```
+{
+    'pk': 4,
     "first_name": "Rongzhi",
     "last_name": "Gu",
     "email": "rongzhi.gu@uwaterloo.ca",
@@ -108,4 +118,59 @@ None
 }
 ```
 #### Possible Error State
-None
+- 404 NOT FOUND
+
+#### Request Method
+PUT
+
+#### Function
+Update a customer by id/pk.
+
+#### Parameter
+```
+{
+    'pk': 4,
+    "first_name": "Rongzhi",
+    "last_name": "Gu",
+    "email": "rongzhi.gu@uwaterloo.ca",
+    "phone": "2269750663",
+    "address": "268 Lester St",
+    "description": "Too young too simple"
+}
+```
+
+#### Response Example
+```
+{
+    'pk': 4,
+    "first_name": "Rongzhi",
+    "last_name": "Gu",
+    "email": "rongzhi.gu@uwaterloo.ca",
+    "phone": "2269750663",
+    "address": "268 Lester St",
+    "description": "Too young too simple"
+}
+```
+
+#### Possible Error State
+- 404 NOT FOUND
+- 400 BAD REQUEST
+
+#### Request Method
+DELETE
+
+#### Function
+Delete a customer by id/pk.
+
+#### Parameter
+```
+{
+    'pk': 4,
+}
+```
+
+#### Response Example
+- 204 NO CONTENT
+
+#### Possible Error State
+- 404 NOT FOUND
