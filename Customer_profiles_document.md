@@ -1,7 +1,9 @@
+
 # Documentation of Customer Profile
 - [Introduction](#intro)
 - [Requirement](#req)
 - [API](#api)
+
 
 
 ## <a name="intro">Introduction</a>
@@ -72,16 +74,17 @@ POST
 Create a new customer
 
 #### Parameter
-```
-{
-    "first_name": "Rongzhi",
-    "last_name": "Gu",
-    "email": "rongzhi.gu@uwaterloo.ca",
-    "phone": "2269750663",
-    "address": "268 Lester St",
-    "description": "(■)__(■) Soooooo Violentttttt (■)__(■)"
-}
-```
+
+| Attribute | Type     | Required | Description|
+| ---       |  ------  |--------- |----------- |
+| first_name|  string  | yes      |First name of the user|
+| last_name |  string  | yes      |Last name of the user|
+| email |  string  | yes      |Email address of the user|
+| phone |  string  | yes      |Phone number of the user|
+| address |  string  | no      |Address of the user|
+| description |  string  | no      |Additional description of the user, might be used for search|
+
+
 
 #### Response Example
 None
@@ -99,11 +102,12 @@ GET
 Retrieve a customer by id/pk.
 
 #### Parameter
-```
-{
-    'pk': 4,
-}
-```
+
+| Attribute | Type     | Required | Description|
+| ---       |  ------  |--------- |----------- |
+| pk|  integer/string	  | yes      |Id or primary key of the user data|
+
+
 
 #### Response Example
 ```
@@ -127,17 +131,16 @@ PUT
 Update a customer by id/pk.
 
 #### Parameter
-```
-{
-    'pk': 4,
-    "first_name": "Rongzhi",
-    "last_name": "Gu",
-    "email": "rongzhi.gu@uwaterloo.ca",
-    "phone": "2269750663",
-    "address": "268 Lester St",
-    "description": "Too young too simple"
-}
-```
+| Attribute | Type     | Required | Description|
+| ---       |  ------  |--------- |----------- |
+| pk|  integer/string	  | yes      |Id or primary key of the user data|
+| first_name|  string  | yes      |First name of the user|
+| last_name |  string  | yes      |Last name of the user|
+| email |  string  | yes      |Email address of the user|
+| phone |  string  | yes      |Phone number of the user|
+| address |  string  | no      |Address of the user|
+| description |  string  | no      |Additional description of the user, might be used for search|
+
 
 #### Response Example
 ```
@@ -163,11 +166,11 @@ DELETE
 Delete a customer by id/pk.
 
 #### Parameter
-```
-{
-    'pk': 4,
-}
-```
+
+| Attribute | Type     | Required | Description|
+| ---       |  ------  |--------- |----------- |
+| pk|  integer/string	  | yes      |Id or primary key of the user data|
+
 
 #### Response Example
 - 204 NO CONTENT
