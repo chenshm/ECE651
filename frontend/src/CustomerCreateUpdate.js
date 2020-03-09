@@ -14,6 +14,7 @@ class CustomerCreateUpdate extends Component {
 
       componentDidMount(){
         const { match: { params } } = this.props;
+        console.log(this.props);
         if(params && params.pk)
         {
           customersService.getCustomer(params.pk).then((c)=>{
