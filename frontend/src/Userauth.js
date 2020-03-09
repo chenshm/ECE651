@@ -45,13 +45,16 @@ class Userauth extends Component {
     })
       .then(res => res.json())
       .then(json => {
+        //print(json);
+        console.log("hello")
+        console.log(json);
         localStorage.setItem('token', json.token);
         this.setState({
           logged_in: true,
           displayed_form: '',
           username: json.user.username
         });
-      });
+      }).catch(error => console.log(error) );;
   };
 
   handle_signup = (e, data) => {
