@@ -7,7 +7,7 @@ WORKDIR /app/backend
 # Install Python dependencies
 COPY requirements.txt /app/backend
 RUN pip3 install --upgrade pip -r requirements.txt
-
+RUN pip install --upgrade djangorestframework
 # Add the rest of the code
 COPY . /app/backend
 
