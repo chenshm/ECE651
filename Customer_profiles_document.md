@@ -1,9 +1,8 @@
-
 # Documentation of Customer Profile
 - [Introduction](#intro)
 - [Requirement](#req)
 - [API](#api)
-
+- [UI Design](#ui)
 
 
 ## <a name="intro">Introduction</a>
@@ -177,3 +176,11 @@ Delete a customer by id/pk.
 
 #### Possible Error State
 - 404 NOT FOUND
+
+## <a name="ui">UI Design</a>
+### Default
+![alt text](CUSTOMERS_UI.png "CUSTOMER_UI")
+
+### Create Customer
+
+![alt text](CREATE_CUSTOMER_UI.png "CREATE_CUSTOMER_UI")
