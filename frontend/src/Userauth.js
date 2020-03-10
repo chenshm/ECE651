@@ -4,7 +4,8 @@ import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import './Userauth.css';
 import Capp from './Capp';
-const API_URL = 'http://localhost:8000';
+import API_URL from './API_URL.js';
+//const API_URL = 'http://localhost:8000';
 
 class Userauth extends Component {
   constructor(props) {
@@ -54,7 +55,7 @@ class Userauth extends Component {
           displayed_form: '',
           username: json.user.username
         });
-      }).catch(error => console.log(error) );;
+      }).catch(error => console.log(error) );
   };
 
   handle_signup = (e, data) => {

@@ -1,5 +1,6 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:8000';
+import API_URL from './API_URL';
+//const API_URL = 'http://localhost:8000';
 axios.defaults.headers.common['Authorization'] = `JWT ${localStorage.getItem('token')}` // for all requests
 export default class CustomersService{
 
@@ -7,15 +8,17 @@ export default class CustomersService{
 
 
     getCustomers() {
-        //const url = `${API_URL}/api/customers/`;
+        const url = `${API_URL}/api/customers/`;
         //return axios.get(url).then(response => response.data);
+        /*
         return axios({
             method: 'get',
             url: `${API_URL}/api/customers/`,
             headers: {
                 Authorization: `JWT ${localStorage.getItem('token')}`
               },
-          }).then(response => response.data);
+          }).then(response => response.data);*/
+        return axios.get(url,{ headers: {Authorization: `JWT ${localStorage.getItem('token')}`} }).then(response => response.data);
         }   
     getCustomersByURL(link){
         const url = `${API_URL}${link}`;

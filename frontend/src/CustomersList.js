@@ -18,7 +18,7 @@ class  CustomersList  extends  Component {
         var  self  =  this;
         customersService.getCustomers().then(function (result) {
             self.setState({ customers:  result.data, nextPageURL:  result.nextlink})
-        });
+        }).catch(error => console.log("customerlist could not connect to backend !!!!") );
     }
     handleDelete(e,pk){
         var  self  =  this;
