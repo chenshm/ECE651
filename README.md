@@ -22,6 +22,9 @@
   sudo docker-compose run frontend npm test
 * Git push branch:  
 git push origin branch-name
+* Git fetch remote branch and checkout:
+git fetch origin branch-name
+git checkout branch-name
 # Software stack
 Our website runs on the following software:  
 * Ubuntu
