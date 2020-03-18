@@ -5,17 +5,21 @@ import PropTypes from 'prop-types';
 class SignupForm extends React.Component {
   state = {
     username: '',
-    password: ''
+    password: '',
+    groups: "tenant",
   };
 
   handle_change = e => {
     const name = e.target.name;
     const value = e.target.value;
+    //console.log(name,value);
     this.setState(prevstate => {
       const newState = { ...prevstate };
       newState[name] = value;
+      
       return newState;
     });
+    
   };
 
   render() {
@@ -46,6 +50,31 @@ class SignupForm extends React.Component {
               onChange={this.handle_change}
             />
             </div>
+            <div class="form-group">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" 
+                type="radio" 
+                name="groups"  
+                value="landord" 
+                id="inlineRadio1"
+                onChange={this.handle_change}
+                checked={this.state.groups === "landord"}
+                />
+                <label class="form-check-label" htmlFor="inlineRadio1">Landord</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" 
+                        type="radio" 
+                        name="groups"  
+                        value="tenant" 
+                        id="inlineRadio2"
+                        onChange={this.handle_change}
+                        checked={this.state.groups === "tenant"}
+                        />
+                <label class="form-check-label" htmlFor="inlineRadio2">Tenant</label>
+              </div>
+            </div>
+           
             <div class="form-group">
               <button type="submit" class="btn btn-primary btn-block"> Sign up  </button>
             </div> 

@@ -13,7 +13,8 @@ class Userauth extends Component {
     this.state = {
       displayed_form: 'login',
       logged_in: localStorage.getItem('token') ? true : false,
-      username: ''
+      username: '',
+      groups:'',
     };
     this.handle_login = this.handle_login.bind(this);
     this.handle_logout = this.handle_logout.bind(this);
@@ -30,7 +31,10 @@ class Userauth extends Component {
       })
         .then(res => res.json())
         .then(json => {
-          this.setState({ username: json.username });
+          if(json.username && json.groups)
+          {
+            this.setState({ username: json.username,groups:json.groups[0].name, });
+          }
         });
     }
   }
@@ -53,13 +57,15 @@ class Userauth extends Component {
         this.setState({
           logged_in: true,
           displayed_form: '',
-          username: json.user.username
+          username: json.user.username,
+          groups:json.user.groups[0].name,
         });
       }).catch(error => console.log(error) );
   };
 
   handle_signup = (e, data) => {
     e.preventDefault();
+    console.log(data);
     fetch(`${API_URL}/api/users/`, {
       method: 'POST',
       headers: {
@@ -104,7 +110,7 @@ class Userauth extends Component {
     if (this.state.logged_in){
           return (
             <div className="Userauth">
-              <Capp handle_logout={this.handle_logout}/>
+              <Capp handle_logout={this.handle_logout} username={this.state.username}/>
             </div>
           );
       }

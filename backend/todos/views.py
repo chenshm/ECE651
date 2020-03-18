@@ -14,7 +14,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from rest_framework import permissions, status
 from rest_framework.views import APIView
-
+from django.contrib.auth.models import Group
 
 class ListTodo(generics.ListCreateAPIView):
     queryset = Todo.objects.all()
@@ -96,6 +96,7 @@ def current_user(request):
     """
     
     serializer = UserSerializer(request.user)
+    print("current!!!!!!!:",request.user,serializer.data)
     return Response(serializer.data)
 
 
@@ -108,8 +109,10 @@ class UserList(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):
+        #print("request data: ",request.data)
         serializer = UserSerializerWithToken(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            #print("serializer.data: ",type(serializer.data))
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

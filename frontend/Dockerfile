@@ -7,7 +7,7 @@ WORKDIR /app/
 COPY package.json yarn.lock /app/
 
 RUN npm install
-
+#RUN npm install react-bootstrap bootstrap
 # Add rest of the client code
 COPY . /app/
 
