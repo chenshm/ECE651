@@ -33,8 +33,9 @@ describe('<LoginForm />', () => {
 
     const wrapper = mount(<Userauth />);
     wrapper.setState({ logged_in: true });
-    wrapper.find('button').at(1).simulate('click');
-    expect(wrapper.state('logged_in')).to.equal(false);
+    expect(wrapper.find(Capp)).to.have.lengthOf(1);
+    //wrapper.find('button').at(1).simulate('click');
+    //expect(wrapper.state('logged_in')).to.equal(false);
   });
 
   it('CHECK userauth about log out', () => {
