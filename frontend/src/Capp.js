@@ -3,6 +3,7 @@ import { BrowserRouter } from  'react-router-dom'
 import { Route, Link } from  'react-router-dom'
 import  CustomersList  from  './CustomersList'
 import  CustomerCreateUpdate  from  './CustomerCreateUpdate'
+import  SearchBar from './SearchBar'
 import Userauth from './Userauth'
 import  './Capp.css';
 
@@ -41,9 +42,11 @@ const  BaseLayout  = (item) => (
 class  Capp  extends  Component {
     constructor(props) {
         super(props);
+        this.state = {
+            filterText:'',
+        };
     }
     render() {
-
         return (
         <BrowserRouter>
             <div  className="container-fluid">
@@ -52,7 +55,7 @@ class  Capp  extends  Component {
                     <a  className="navbar-brand"  href="#">Django React Demo</a>
 
                     <button  className="navbar-toggler"  type="button"  data-toggle="collapse"  data-target="#navbarNavAltMarkup"  aria-controls="navbarNavAltMarkup"  aria-expanded="false"  aria-label="Toggle navigation">
-                        <span  className="navbar-toggler-icon"></span>
+                        <span  className="navbar-toggler-icon"/>
                     </button>
 
                     <div  className="collapse navbar-collapse"  id="navbarNavAltMarkup">
@@ -61,7 +64,11 @@ class  Capp  extends  Component {
                             <a  className="nav-item nav-link"  href="/customer">CREATE CUSTOMER</a>
                         </div>
                     </div>
-                    <button onClick={this.props.handle_logout} class="float-right btn btn-outline-primary">Login out</button>
+
+                    <div className="form-inline">
+                        <SearchBar/>
+                        <button onClick={this.props.handle_logout} class="btn btn-outline-primary">Login out</button>
+                    </div>
                 </nav>
 
                     <div  className="content">
