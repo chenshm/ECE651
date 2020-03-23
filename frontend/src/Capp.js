@@ -28,10 +28,10 @@ const  BaseLayout  = (item) => (
 
              <div  className="content">
                  <switch>
-                    <Route  path="/"  exact  component={CustomersList}  />
+                    {/*<Route  path="/"  exact  component={CustomersList}  />*/}
+                    <Route  exact path="/"  render={(props) => <CustomersList {...props} isAuthed={true} />} />
                     <Route  path="/customer/:pk"  component={CustomerCreateUpdate}  />
                     <Route  path="/customer/"  exact  component={CustomerCreateUpdate}  />
-                    
                 </switch>
             </div>
 
@@ -43,8 +43,16 @@ class  Capp  extends  Component {
     constructor(props) {
         super(props);
         this.state = {
-            filterText:'',
+            queryText: '',
         };
+        this.handleCustomerSearch = this.handleCustomerSearch.bind(this);
+    }
+    handleCustomerSearch(query){
+        this.setState(
+            {
+               queryText: query,
+            }
+        )
     }
     render() {
         return (
@@ -66,17 +74,20 @@ class  Capp  extends  Component {
                     </div>
 
                     <div className="form-inline">
-                        <SearchBar/>
+                        <SearchBar onSearchSubmitted={this.handleCustomerSearch}/>
                         <button onClick={this.props.handle_logout} class="btn btn-outline-primary">Login out</button>
                     </div>
                 </nav>
 
                     <div  className="content">
                         <switch>
-                            <Route  path="/"  exact  component={CustomersList}  />
+                            {/*<Route  path="/"  exact  component={CustomersList}  />*/}
+                            <Route
+                                exact path="/"
+                                render={(props) => <CustomersList {...props} queryText={this.state.queryText} />}
+                            />
                             <Route  path="/customer/:pk"  component={CustomerCreateUpdate}  />
                             <Route  path="/customer/"  exact  component={CustomerCreateUpdate}  />
-                            
                         </switch>
                     </div>
 
