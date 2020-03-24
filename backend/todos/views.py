@@ -12,7 +12,7 @@ from .serializers import *
 
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from rest_framework import permissions, status
+from rest_framework import permissions, status, pagination
 from rest_framework.views import APIView
 from django.contrib.auth.models import Group
 
@@ -24,8 +24,64 @@ class ListTodo(generics.ListCreateAPIView):
 class DetailTodo(generics.RetrieveUpdateDestroyAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
+@api_view(['GET', 'POST'])
+def housing_list(request):
+    if request.method == 'GET':
+        housings = Housing.objects.all()
+        data = []
+        nextPage = 1
+        previousPage = 1
+        page = request.GET.get('page', 1)
+        paginator = Paginator(housings, 5)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        serializer = HousingSerializer(data,context={'request': request} ,many=True)
+        if data.has_next():
+            nextPage = data.next_page_number()
+        if data.has_previous():
+            previousPage = data.previous_page_number()
+        return Response({'data': serializer.data , 'count': paginator.count, 'numpages' : paginator.num_pages, 'nextlink': '/api/housings/?page=' + str(nextPage), 'prevlink': '/api/housings/?page=' + str(previousPage)})
+    elif request.method == 'POST':
+        print("post: ",request.data)
+        request.data['owner']=request.user.pk
+        serializer = HousingCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['GET', 'PUT', 'DELETE'])
+def housing_detail(request, pk):
+    """
+ Retrieve, update or delete a customer by id/pk.
+ """
+    print("data1!!!!!! ",request.user)
+    print("data1!!!!!! ",request.data)
+    print("data1!!!!!! ",type(request.data))
+    request.data['owner']=request.user.pk
+    try:
+        housing = Housing.objects.get(pk=pk)
+    except housing.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
+    if request.method == 'GET':
+        serializer = HousingCreateSerializer(housing,context={'request': request})
+        return Response(serializer.data)
 
+    elif request.method == 'PUT':
+        print("alow ha: ",request.data)
+        serializer = HousingCreateSerializer(housing, data=request.data,context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        housing.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 @api_view(['GET', 'POST'])
 def customers_list(request):
     """
@@ -94,7 +150,10 @@ def current_user(request):
     """
     Determine the current user by their token, and return their data
     """
-    
+    print(request)
+    print(request.user)
+    print(request.user.pk)
+    #print(request.pk)
     serializer = UserSerializer(request.user)
     print("current!!!!!!!:",request.user,serializer.data)
     return Response(serializer.data)
@@ -116,3 +175,41 @@ class UserList(APIView):
             #print("serializer.data: ",type(serializer.data))
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CustomPagination(pagination.PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'
+    max_page_size = 5
+
+    #prevlink ='/api/myhousing/?page='+str(self.page.previous_page_number())
+    def get_paginated_response(self, data):
+        if not self.page.has_next():
+            nextlink = None
+        else:
+            nextlink = '/api/myhousing/?page='+str(self.page.next_page_number())
+        if not self.page.has_previous():
+            prevlink = None
+        else:
+            prevlink = '/api/myhousing/?page='+str(self.page.previous_page_number())
+        return Response({
+            'data': data,
+            'count': self.page.paginator.count,
+            'numpages' : self.page.paginator.num_pages,
+            #"nextlink":self.get_next_link(),
+            #"prevlink":self.get_previous_link(),
+            "nextlink":nextlink,
+            "prevlink":prevlink,
+                   
+        })
+
+class MyhouseList(generics.ListCreateAPIView):
+    serializer_class = HousingSerializer
+    pagination_class = CustomPagination
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        userid = self.request.user
+        return Housing.objects.filter(owner=userid)

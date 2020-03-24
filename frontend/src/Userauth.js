@@ -15,6 +15,7 @@ class Userauth extends Component {
       logged_in: localStorage.getItem('token') ? true : false,
       username: '',
       groups:'',
+      pk:'',
     };
     this.handle_login = this.handle_login.bind(this);
     this.handle_logout = this.handle_logout.bind(this);
@@ -33,7 +34,7 @@ class Userauth extends Component {
         .then(json => {
           if(json.username && json.groups)
           {
-            this.setState({ username: json.username,groups:json.groups[0].name, });
+            this.setState({ username: json.username,groups:json.groups[0].name,pk:json.pk });
           }
         });
     }
@@ -51,14 +52,15 @@ class Userauth extends Component {
       .then(res => res.json())
       .then(json => {
         //print(json);
-        console.log("hello")
-        console.log(json);
+        //console.log("hello")
+        //console.log(json);
         localStorage.setItem('token', json.token);
         this.setState({
           logged_in: true,
           displayed_form: '',
           username: json.user.username,
           groups:json.user.groups[0].name,
+          pk:json.user.pk,
         });
       }).catch(error => console.log(error) );
   };
@@ -79,14 +81,17 @@ class Userauth extends Component {
         this.setState({
           logged_in: true,
           displayed_form: '',
-          username: json.username
+          username: json.username,
+          groups:json.groups[0].name,
+          pk:json.pk,
         });
       });
   };
 
   handle_logout = () => {
     localStorage.removeItem('token');
-    this.setState({ logged_in: false, username: '',displayed_form: 'login' });
+    this.setState({ logged_in: false, username: '',displayed_form: 'login',groups:'',pk:'' });
+    
   };
 
   display_form = form => {
@@ -110,7 +115,7 @@ class Userauth extends Component {
     if (this.state.logged_in){
           return (
             <div className="Userauth">
-              <Capp handle_logout={this.handle_logout} username={this.state.username}/>
+              <Capp handle_logout={this.handle_logout} username={this.state.username} group={this.state.groups} pk={this.state.pk}/>
             </div>
           );
       }

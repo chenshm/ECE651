@@ -9,15 +9,17 @@ class  CustomersList  extends  Component {
         super(props);
         this.state  = {
             customers: [],
-            nextPageURL:  ''
+            nextPageURL:  '',
+            prevPageURL:  '',
         };
+        this.prevPage  =  this.prevPage.bind(this);
         this.nextPage  =  this.nextPage.bind(this);
         this.handleDelete  =  this.handleDelete.bind(this);
     }
     componentDidMount() {
         var  self  =  this;
         customersService.getCustomers().then(function (result) {
-            self.setState({ customers:  result.data, nextPageURL:  result.nextlink})
+            self.setState({ customers:  result.data, nextPageURL:  result.nextlink, prevPageURL: result.prevlink})
         }).catch(error => console.log("customerlist could not connect to backend !!!!") );
     }
     handleDelete(e,pk){
@@ -30,9 +32,15 @@ class  CustomersList  extends  Component {
         });
     }
     nextPage(){
-        var  self  =  this;
+        //var  self  =  this;
         customersService.getCustomersByURL(this.state.nextPageURL).then((result) => {
-            self.setState({ customers:  result.data, nextPageURL:  result.nextlink})
+            this.setState({ customers:  result.data, nextPageURL:  result.nextlink, prevPageURL: result.prevlink})
+        });
+    }
+    prevPage(){
+        //var  self  =  this;
+        customersService.getCustomersByURL(this.state.prevPageURL).then((result) => {
+            this.setState({ customers:  result.data, nextPageURL:  result.nextlink, prevPageURL: result.prevlink})
         });
     }
     render() {
@@ -69,6 +77,7 @@ class  CustomersList  extends  Component {
                     </tr>)}
                 </tbody>
             </table>
+            <button  className="btn btn-primary"  onClick=  {  this.prevPage  }>Prev</button>
             <button  className="btn btn-primary"  onClick=  {  this.nextPage  }>Next</button>
         </div>
         );

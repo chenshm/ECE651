@@ -29,9 +29,26 @@ class UserSerializer(serializers.ModelSerializer):
     groups = GroupSerializer(many=True)
     class Meta:
         model = User
-        fields = ('username','groups')
+        fields = ('pk','username','groups')
+class UseremailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username','email')
+class HousingSerializer(serializers.ModelSerializer):
+    owner =  UseremailSerializer(many=False)
+    #    landord = serializers.ReadOnlyField(source='owner.username')
+    #    email = serializers.ReadOnlyField(source='owner.email')
+    #    rent = serializers.IntegerField(required=True)
+    #    address = serializers.CharField(required=False, allow_blank=True, max_length=100)
+    class Meta:
+        model = Housing
+        fields = ['pk','owner','rent','address']
+        #fields = ('landord','email','rent','address')
 
-
+class HousingCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Housing
+        fields = ['pk','owner','rent','address']
 
 class UserSerializerWithToken(serializers.ModelSerializer):
 
@@ -67,4 +84,4 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('token', 'username', 'password','groups')
+        fields = ('pk','token', 'username', 'password','groups')
