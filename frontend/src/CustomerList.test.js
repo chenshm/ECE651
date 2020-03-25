@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { render } from '@testing-library/react';
 import renderer from  "react-test-renderer";
 import CustomersList from "./CustomersList";
-
+import nock from 'nock'; 
 import Enzyme, { shallow,mount } from 'enzyme';
 
 describe('CustomersList', () => {
@@ -48,11 +48,28 @@ describe('CustomersList', () => {
         //console.log(rows);
         //expect(rows).toHaveLength(1);
     });
-    test('should call did mount', () => {
+    /*test('should call did mount', () => {
+      const scope = nock('http://localhost:8000') 
+      .get('/api/customers/')
+      .reply(200, { customers:  [], nextPageURL:  "" }, 
+      { 
+        'Access-Control-Allow-Origin': '*', 
+        'Content-type': 'application/json' 
+      }); 
+      const div = document.createElement('div');
+      ReactDOM.render(<CustomersList queryText=''
+      field='All' />, div);
+      ReactDOM.unmountComponentAtNode(div);
+
         expect(didMountSpy).toHaveBeenCalledTimes(0);   
-        const wrapper=mount(<CustomersList  />);
+        const wrapper=shallow(<CustomersList queryText=''
+          field='All' />);
         expect(didMountSpy).toHaveBeenCalledTimes(1);
+<<<<<<< HEAD
       });
 
+=======
+      });*/
+>>>>>>> 3-search-function
 });
 

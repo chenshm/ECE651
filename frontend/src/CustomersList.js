@@ -11,6 +11,7 @@ class  CustomersList  extends  Component {
             customers: [],
             nextPageURL:  '',
             prevPageURL:  '',
+
         };
         this.prevPage  =  this.prevPage.bind(this);
         this.nextPage  =  this.nextPage.bind(this);
@@ -22,6 +23,21 @@ class  CustomersList  extends  Component {
             self.setState({ customers:  result.data, nextPageURL:  result.nextlink, prevPageURL: result.prevlink})
         }).catch(error => console.log("customerlist could not connect to backend !!!!") );
     }
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (this.props !== nextProps){
+            const queryText = nextProps.queryText;
+            const field = nextProps.field;
+            if (queryText !== '') {
+                customersService.searchCustomer(queryText, field).then((result) =>{
+                    this.setState({ customers:  result.data, nextPageURL:  result.nextlink, prevPageURL: result.prevlink})
+                });
+            }
+            else {
+                this.componentDidMount()
+            }
+        }
+    }
+
     handleDelete(e,pk){
         var  self  =  this;
         customersService.deleteCustomer({pk :  pk}).then(()=>{
@@ -44,7 +60,6 @@ class  CustomersList  extends  Component {
         });
     }
     render() {
-
         return (
         <div  className="customers--list">
             <table  className="table">

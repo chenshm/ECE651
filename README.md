@@ -22,6 +22,9 @@
   sudo docker-compose run frontend npm test
 * Git push branch:  
 git push origin branch-name
+* Git fetch remote branch and checkout:
+git fetch origin branch-name
+git checkout branch-name
 # Software stack
 Our website runs on the following software:  
 * Ubuntu
@@ -35,6 +38,9 @@ Our website runs on the following software:
 * Currently, we rely on gitlab runner to do continuous Integration and Testing.
 * Manully deploy our website on the AWS EC2 server:
 [Website Link](http://ec2-18-188-108-51.us-east-2.compute.amazonaws.com:3000/)
+# Test Tool
+* Jest
+* Enzyme
 # System Architecture
 ```mermaid
 graph TB

@@ -6,13 +6,59 @@ import  CustomerCreateUpdate  from  './CustomerCreateUpdate';
 import HousingList from './Housing/HousingList';
 import HousingCreateUpdate from './Housing/HousingCreateUpdate';
 import MyhousingList from './Housing/MyhousingList';
-import Userauth from './Userauth';
+import  SearchBar from './SearchBar'
 import  './Capp.css';
+
+
+const  BaseLayout  = (item) => (
+    <div  className="container-fluid">
+        <nav  className="navbar navbar-expand-lg navbar-light bg-light">
+
+            <a  className="navbar-brand"  href="#">Too Young Too Simple</a>
+
+            <button  className="navbar-toggler"  type="button"  data-toggle="collapse"  data-target="#navbarNavAltMarkup"  aria-controls="navbarNavAltMarkup"  aria-expanded="false"  aria-label="Toggle navigation">
+                <span  className="navbar-toggler-icon"></span>
+            </button>
+
+            <div  className="collapse navbar-collapse"  id="navbarNavAltMarkup">
+                <div  className="navbar-nav">
+                    <a  className="nav-item nav-link"  href="/">CUSTOMERS</a>
+                    <a  className="nav-item nav-link"  href="/customer">CREATE CUSTOMER</a>
+                </div>
+            </div>
+            <button onClick={() => item} class="float-right btn btn-outline-primary">Login out</button>
+        </nav>
+
+             <div  className="content">
+                 <switch>
+                    {/*<Route  path="/"  exact  component={CustomersList}  />*/}
+                    <Route  exact path="/"  render={(props) => <CustomersList {...props} isAuthed={true} />} />
+                    <Route  path="/customer/:pk"  component={CustomerCreateUpdate}  />
+                    <Route  path="/customer/"  exact  component={CustomerCreateUpdate}  />
+                </switch>
+            </div>
+
+        
+    </div>
+    )
 
 
 class  Capp  extends  Component {
     constructor(props) {
         super(props);
+        this.state = {
+            queryText: '',
+            field: 'All',
+        };
+        this.handleCustomerSearch = this.handleCustomerSearch.bind(this);
+    }
+    handleCustomerSearch(query, field){
+        this.setState(
+            {
+               queryText: query,
+                field: field,
+            }
+        )
     }
     render() {
         let my_housing=null;
@@ -31,6 +77,7 @@ class  Capp  extends  Component {
             </div>);
         };
         var pk=this.props.username;
+
         return (
         <BrowserRouter>
             <div  className="container-fluid">
@@ -67,6 +114,9 @@ class  Capp  extends  Component {
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
+                        <SearchBar onSearchSubmitted={this.handleCustomerSearch}/>
+                    </form>
+                    <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
@@ -83,7 +133,14 @@ class  Capp  extends  Component {
 
                     <div  className="content">
                         <switch>
-                            <Route  path="/"  exact  component={CustomersList}  />
+                            <Route
+                                exact path="/"
+                                render={(props) =>
+                                    <CustomersList {...props}
+                                                   queryText={this.state.queryText}
+                                                   field={this.state.field}
+                                    />}
+                            />
                             <Route  path="/customer/:pk/" isAuthed={pk} render={(props,pk) => <CustomerCreateUpdate {...props} {...pk} /> } />
                             
                             <Route  path="/customer/"  exact  render={(props) => <CustomerCreateUpdate {...props} isAuthed={true} />}   />
