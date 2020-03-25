@@ -65,11 +65,9 @@ describe('CustomersList', () => {
         const wrapper=shallow(<CustomersList queryText=''
           field='All' />);
         expect(didMountSpy).toHaveBeenCalledTimes(1);
-<<<<<<< HEAD
-      });
 
-=======
+
       });*/
->>>>>>> 3-search-function
+
 });
 
