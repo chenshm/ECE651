@@ -40,8 +40,8 @@ export default class CustomersService{
         const url = `${API_URL}/api/customers/${customer.pk}`;
         return axios.put(url,customer,{ headers: {Authorization: `JWT ${localStorage.getItem('token')}`} });
     }
-    searchCustomer(query){
-        const url = `${API_URL}/api/customers/s/${query}`;
+    searchCustomer(query, field){
+        const url = `${API_URL}/api/customers/s/${field}/${query}`;
         return axios.get(url,{ headers: {Authorization: `JWT ${localStorage.getItem('token')}`} }).then(response => response.data);
     }
 }

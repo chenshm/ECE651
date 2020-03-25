@@ -21,10 +21,11 @@ class  CustomersList  extends  Component {
         }).catch(error => console.log("customerlist could not connect to backend !!!!") );
     }
     componentWillReceiveProps(nextProps, nextContext) {
-        if (this.props.queryText !== nextProps.queryText){
+        if (this.props !== nextProps){
             const queryText = nextProps.queryText;
+            const field = nextProps.field;
             if (queryText !== '') {
-                customersService.searchCustomer(queryText).then((result) =>{
+                customersService.searchCustomer(queryText, field).then((result) =>{
                     this.setState({ customers:  result.data, nextPageURL:  result.nextlink})
                 });
             }

@@ -44,13 +44,15 @@ class  Capp  extends  Component {
         super(props);
         this.state = {
             queryText: '',
+            field: 'All',
         };
         this.handleCustomerSearch = this.handleCustomerSearch.bind(this);
     }
-    handleCustomerSearch(query){
+    handleCustomerSearch(query, field){
         this.setState(
             {
                queryText: query,
+                field: field,
             }
         )
     }
@@ -84,7 +86,11 @@ class  Capp  extends  Component {
                             {/*<Route  path="/"  exact  component={CustomersList}  />*/}
                             <Route
                                 exact path="/"
-                                render={(props) => <CustomersList {...props} queryText={this.state.queryText} />}
+                                render={(props) =>
+                                    <CustomersList {...props}
+                                                   queryText={this.state.queryText}
+                                                   field={this.state.field}
+                                    />}
                             />
                             <Route  path="/customer/:pk"  component={CustomerCreateUpdate}  />
                             <Route  path="/customer/"  exact  component={CustomerCreateUpdate}  />

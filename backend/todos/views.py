@@ -91,22 +91,34 @@ def customers_detail(request, pk):
 
 
 @api_view(['GET'])
-def customers_search(request, query):
+def customers_search(request, field, query):
     """
     Retrieve customers by query.
     """
     if request.method == 'GET':
         nextPage = 1
         previousPage = 1
-        customers = Customer.objects.filter(
-            Q(pk__contains=query) |
-            Q(first_name__contains=query) |
-            Q(last_name__contains=query) |
-            Q(email__contains=query) |
-            Q(phone__contains=query) |
-            Q(address__contains=query) |
-            Q(description__contains=query)
-        )
+        q_objects = Q()
+        if field == "All":
+            q_objects |= (Q(pk__contains=query) |
+                          Q(first_name__contains=query) |
+                          Q(last_name__contains=query) |
+                          Q(email__contains=query) |
+                          Q(phone__contains=query) |
+                          Q(address__contains=query) |
+                          Q(description__contains=query))
+        elif field == "Name":
+            q_objects |= (Q(first_name__contains=query) |
+                          Q(last_name__contains=query))
+        elif field == "Phone":
+            q_objects |= Q(phone__contains=query)
+        elif field == "Email":
+            q_objects |= Q(email__contains=query)
+        elif field == "Address":
+            q_objects |= Q(address__contains=query)
+        elif field == "Description":
+            q_objects |= Q(description__contains=query)
+        customers = Customer.objects.filter(q_objects)
         page = request.GET.get('page', 1)
         paginator = Paginator(customers, 5)
         try:
@@ -123,8 +135,8 @@ def customers_search(request, query):
             previousPage = data.previous_page_number()
 
         return Response({'data': serializer.data, 'count': paginator.count, 'numpages': paginator.num_pages,
-                         'nextlink': '/api/customers/s/' + query + '?page=' + str(nextPage),
-                         'prevlink': '/api/customers/s/' + query + '?page=' + str(previousPage)})
+                         'nextlink': '/api/customers/s/' + field + '/' + query + '?page=' + str(nextPage),
+                         'prevlink': '/api/customers/s/' + field + '/' + query + '?page=' + str(previousPage)})
 
 
 @api_view(['GET'])
