@@ -17,10 +17,14 @@ describe('CustomersList', () => {
       mount(<CustomersList />);
     });
     it('check props',() => {
-        const state={'customers': [{"pk":1,"first_name":"shimeng","last_name":"chen","email":"844650898@qq.com","phone":"123456789","address":"white house","description":"waterloo"}],'nextPageURL':  'alowha'}
+        const c=[{"pk":1,"first_name":"shimeng","last_name":"chen","email":"844650898@qq.com","phone":"123456789","address":"white house","description":"waterloo"}];
+        const state={'customers': c,'nextPageURL':  'alowha'}
         const wrapper=mount(<CustomersList  />);
-        wrapper.setProps(state);
-        expect(wrapper.props().customers).toEqual(state['customers']);
+        wrapper.setState(state);
+        //expect(wrapper.props().customers).toEqual(state['customers']);
+        expect(wrapper.state('customers')).toEqual(state['customers']);
+        const hrows = wrapper.find('tr');
+        expect(hrows).toHaveLength(2);
     });
     it('check table',() => {
         const cols = ['#','First Name','Last Name','Phone','Email','Address','Description','Actions'];
@@ -31,16 +35,24 @@ describe('CustomersList', () => {
         expect(table).toHaveLength(1);
         const thead = table.find('thead');
         expect(thead).toHaveLength(1);
+        const hrows = thead.find('tr');
+        expect(hrows).toHaveLength(1);
         const headers = thead.find('th');
         expect(headers).toHaveLength(8);
         headers.forEach((th,idx)=>{
             expect(th.text()).toEqual(cols[idx]);
         });
+        const tbody = table.find('tbody');
+        expect(tbody).toHaveLength(1);
+        //const rows = tbody.find('tr');
+        //console.log(rows);
+        //expect(rows).toHaveLength(1);
     });
     test('should call did mount', () => {
         expect(didMountSpy).toHaveBeenCalledTimes(0);   
         const wrapper=mount(<CustomersList  />);
         expect(didMountSpy).toHaveBeenCalledTimes(1);
       });
+
 });
 

@@ -15,6 +15,7 @@ class CustomerCreateUpdate extends Component {
       componentDidMount(){
         const { match: { params } } = this.props;
         console.log(this.props);
+        
         if(params && params.pk)
         {
           customersService.getCustomer(params.pk).then((c)=>{
@@ -79,9 +80,12 @@ class CustomerCreateUpdate extends Component {
       }
 
       render() {
+        //let location = useLocation();
+        console.log(this.props.location.pk);
         return (
           <form onSubmit={this.handleSubmit}>
           <div className="form-group">
+
             <label>
               First Name:</label>
               <input className="form-control" type="text" ref='firstName' />

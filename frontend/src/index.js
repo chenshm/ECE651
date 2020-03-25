@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from '../src/App';
-import Userauth from './Userauth';
+import Userauth from './Userauth.js';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<Userauth />, document.getElementById('root'));

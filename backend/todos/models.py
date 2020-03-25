@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Todo(models.Model):
     title = models.CharField(max_length=200)
@@ -20,3 +20,10 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.first_name
+
+class Housing(models.Model):
+    owner = models.ForeignKey(User,on_delete=models.CASCADE)
+    rent = models.FloatField(blank=False, null=False)
+    address =  models.TextField(blank=True, null=False)
+    def __str__(self):
+        return "("+self.owner.username+")"+self.address

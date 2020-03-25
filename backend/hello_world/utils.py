@@ -1,5 +1,5 @@
 
-from todos.serializers import UserSerializer
+from todos.serializers import *
 
 
 def my_jwt_response_handler(token, user=None, request=None):
