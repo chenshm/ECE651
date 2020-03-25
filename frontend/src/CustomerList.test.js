@@ -37,23 +37,23 @@ describe('CustomersList', () => {
             expect(th.text()).toEqual(cols[idx]);
         });
     });
-    test('should call did mount', () => {
-      /*const scope = nock('http://localhost:8000') 
+    /*test('should call did mount', () => {
+      const scope = nock('http://localhost:8000') 
       .get('/api/customers/')
       .reply(200, { customers:  [], nextPageURL:  "" }, 
       { 
         'Access-Control-Allow-Origin': '*', 
         'Content-type': 'application/json' 
-      }); */
+      }); 
       const div = document.createElement('div');
       ReactDOM.render(<CustomersList queryText=''
       field='All' />, div);
       ReactDOM.unmountComponentAtNode(div);
 
-       /* expect(didMountSpy).toHaveBeenCalledTimes(0);   
+        expect(didMountSpy).toHaveBeenCalledTimes(0);   
         const wrapper=shallow(<CustomersList queryText=''
           field='All' />);
-        expect(didMountSpy).toHaveBeenCalledTimes(1);*/
-      });
+        expect(didMountSpy).toHaveBeenCalledTimes(1);
+      });*/
 });
 
