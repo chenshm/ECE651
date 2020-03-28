@@ -14,6 +14,7 @@ class HousingList extends Component {
         this.prevPage  =  this.prevPage.bind(this);
         this.nextPage  =  this.nextPage.bind(this);
         this.handleDelete  =  this.handleDelete.bind(this);
+        this.props.changefield();
     }
     componentDidMount(){
         var self = this;
@@ -21,6 +22,20 @@ class HousingList extends Component {
             self.setState({housings: result.data, nextPageURL:result.nextlink, prevPageURL:result.prevlink
             });
         } )
+    }
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (this.props !== nextProps){
+            const queryText = nextProps.queryText;
+            const field = nextProps.field;
+            if (queryText !== '') {
+                housingService.searchHousing(queryText, field).then((result) =>{
+                    this.setState({ housings:  result.data, nextPageURL:  result.nextlink, prevPageURL: result.prevlink})
+                });
+            }
+            else {
+                this.componentDidMount()
+            }
+        }
     }
     handleDelete(e,pk){
         var self = this;
@@ -44,6 +59,7 @@ class HousingList extends Component {
         });
     }
     render(){
+        
         return(
             <div  className="housings--list">
             <table  className="table">
@@ -54,7 +70,7 @@ class HousingList extends Component {
                     <th>Rent</th>
                     <th>Landlord</th>
                     <th>Email</th>
-                    <th>Action</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -65,10 +81,7 @@ class HousingList extends Component {
                         <td>{c.rent}</td>
                         <td>{c.owner.username}</td>
                         <td>{c.owner.email}</td>
-                        <td>
-                        <button  onClick={(e)=>  this.handleDelete(e,c.pk) }> Delete</button>
-                        <Link to={{ pathname: "/housing/" + c.pk,pk:this.props.location.pk}}>Update</Link>
-                        </td>
+  
                     </tr>)}
                 </tbody>
             </table>

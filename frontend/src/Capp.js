@@ -1,6 +1,5 @@
 import  React, { Component } from  'react';
-import { BrowserRouter } from  'react-router-dom';
-import { Route, Link } from  'react-router-dom';
+import { BrowserRouter,Route, Link,Switch, useLocation } from  'react-router-dom';
 import  CustomersList  from  './CustomersList';
 import  CustomerCreateUpdate  from  './CustomerCreateUpdate';
 import HousingList from './Housing/HousingList';
@@ -9,39 +8,10 @@ import MyhousingList from './Housing/MyhousingList';
 import  SearchBar from './SearchBar'
 import  './Capp.css';
 
-
-const  BaseLayout  = (item) => (
-    <div  className="container-fluid">
-        <nav  className="navbar navbar-expand-lg navbar-light bg-light">
-
-            <a  className="navbar-brand"  href="#">Too Young Too Simple</a>
-
-            <button  className="navbar-toggler"  type="button"  data-toggle="collapse"  data-target="#navbarNavAltMarkup"  aria-controls="navbarNavAltMarkup"  aria-expanded="false"  aria-label="Toggle navigation">
-                <span  className="navbar-toggler-icon"></span>
-            </button>
-
-            <div  className="collapse navbar-collapse"  id="navbarNavAltMarkup">
-                <div  className="navbar-nav">
-                    <a  className="nav-item nav-link"  href="/">CUSTOMERS</a>
-                    <a  className="nav-item nav-link"  href="/customer">CREATE CUSTOMER</a>
-                </div>
-            </div>
-            <button onClick={() => item} class="float-right btn btn-outline-primary">Login out</button>
-        </nav>
-
-             <div  className="content">
-                 <switch>
-                    {/*<Route  path="/"  exact  component={CustomersList}  />*/}
-                    <Route  exact path="/"  render={(props) => <CustomersList {...props} isAuthed={true} />} />
-                    <Route  path="/customer/:pk"  component={CustomerCreateUpdate}  />
-                    <Route  path="/customer/"  exact  component={CustomerCreateUpdate}  />
-                </switch>
-            </div>
-
-        
-    </div>
-    )
-
+function usePageViews() {
+    let location = useLocation();
+    return location.pathname;
+  }
 
 class  Capp  extends  Component {
     constructor(props) {
@@ -49,19 +19,58 @@ class  Capp  extends  Component {
         this.state = {
             queryText: '',
             field: 'All',
+            type:'customer',
         };
-        this.handleCustomerSearch = this.handleCustomerSearch.bind(this);
+        //this.handleCustomerSearch = this.handleCustomerSearch.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.tocustomer = this.tocustomer.bind(this);
+        this.tohousing = this.tohousing.bind(this);
     }
-    handleCustomerSearch(query, field){
+    /*handleCustomerSearch(query, field){
         this.setState(
             {
                queryText: query,
                 field: field,
             }
-        )
+        );
+    }*/
+    handleSubmit(event){
+        this.setState(prevstate => {
+            const newState = { ...prevstate };
+            newState['queryText'] = this.refs.queryText.value;
+            newState['field'] = this.refs.field.value;
+            return newState;
+          });
+        /*this.setState(
+            {
+               queryText: this.refs.queryText.value,
+                field: this.refs.field.value,
+            }
+        );*/
+        event.preventDefault();
+    }
+    tocustomer(event){
+        this.setState(prevstate => {
+            const newState = { ...prevstate };
+            newState['type'] = 'customer';
+            return newState;
+          });
+          //event.preventDefault();
+    }
+    tohousing(event){
+        //console.log("alow ha");
+        this.setState(prevstate => {
+            const newState = { ...prevstate };
+            newState['type'] = 'housing';
+            return newState;
+          });
+          //this.setState({type:'housing'});
+          //event.preventDefault();
     }
     render() {
+
         let my_housing=null;
+        let fields=null;
         if(this.props.group==='landord'){
             my_housing=(
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -76,6 +85,28 @@ class  Capp  extends  Component {
             <Link  className="dropdown-item" onClick={this.props.handle_logout} to={{ pathname: "/"}}>Login out</Link>
             </div>);
         };
+        if(this.state.type === 'customer' ){
+            fields=(                            
+                <select className="form-control" ref='field'>
+                <option>All</option>
+                <option>Name</option>
+                <option>Phone</option>
+                <option>Email</option>
+                <option>Address</option>
+                <option>Description</option>
+                </select>
+                );
+        }else{
+            fields=(
+                <select className="form-control" ref='field'>
+                <option>All</option>
+                <option>Rent</option>
+                <option>Landord</option>
+                <option>Email</option>
+                <option>Address</option>
+                </select>
+            );
+        }
         var pk=this.props.username;
 
         return (
@@ -90,10 +121,10 @@ class  Capp  extends  Component {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="#"onClick={this.tocustomer} >Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" onClick={this.tohousing} href="#">Link</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -101,8 +132,8 @@ class  Capp  extends  Component {
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <Link  className="dropdown-item" to={{ pathname: "/house/create",pk:this.props.pk}}>Create Housing</Link>
-                            <Link  className="dropdown-item" to={{ pathname: "/housing",pk:this.props.pk}}>Housing List</Link>
-                            <a  className="dropdown-item"  href="/">Customer List</a>
+                            <Link  className="dropdown-item"  to={{ pathname: "/housing"}}>Housing List</Link>
+                            <Link  className="dropdown-item" to={{ pathname: "/"}}>Customer List</Link>
                             <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Customer</Link>
 
                             <div class="dropdown-divider"></div>
@@ -113,11 +144,11 @@ class  Capp  extends  Component {
                             <a class="nav-link disabled" href="#">Disabled</a>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <SearchBar onSearchSubmitted={this.handleCustomerSearch}/>
-                    </form>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+
+                    <form class="form-inline my-2 my-lg-0" onSubmit={this.handleSubmit}>
+ 
+                        {fields}
+                         <input className="form-control  mr-sm-2" type="search" ref='queryText' placeholder="Search..."  aria-label="Search"/>
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                     <li class="nav-item dropdown">
@@ -133,21 +164,31 @@ class  Capp  extends  Component {
 
                     <div  className="content">
                         <switch>
+
+                            <Route  path="/customer/:pk/" isAuthed={pk} render={(props,pk) => <CustomerCreateUpdate {...props} {...pk} /> } />
+                            
+                            <Route  path="/customer/"  exact  render={(props) => <CustomerCreateUpdate {...props} isAuthed={true} />}   />
+                            <Route  path="/house/create"  exact  component={HousingCreateUpdate}  />
+                            <Route  path="/housing/:pk"  exact  component={HousingCreateUpdate}  />
+                            <Route  path="/myhousing/"  exact  component={MyhousingList}  />
+                            <Route
+                                exact path="/housing/"
+                                render={(props) =>
+                                    <HousingList {...props}
+                                                   queryText={this.state.queryText}
+                                                   field={this.state.field}
+                                                   changefield={this.tohousing}
+                                    />}
+                            />
                             <Route
                                 exact path="/"
                                 render={(props) =>
                                     <CustomersList {...props}
                                                    queryText={this.state.queryText}
                                                    field={this.state.field}
+                                                   changefield={this.tocustomer}
                                     />}
                             />
-                            <Route  path="/customer/:pk/" isAuthed={pk} render={(props,pk) => <CustomerCreateUpdate {...props} {...pk} /> } />
-                            
-                            <Route  path="/customer/"  exact  render={(props) => <CustomerCreateUpdate {...props} isAuthed={true} />}   />
-                            <Route  path="/housing/"  exact  component={HousingList}  />
-                            <Route  path="/house/create"  exact  component={HousingCreateUpdate}  />
-                            <Route  path="/housing/:pk"  exact  component={HousingCreateUpdate}  />
-                            <Route  path="/myhousing/"  exact  component={MyhousingList}  />
                         </switch>
                     </div>
 

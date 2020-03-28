@@ -194,6 +194,53 @@ def customers_search(request, field, query):
                          'nextlink': '/api/customers/s/' + field + '/' + query + '?page=' + str(nextPage),
                          'prevlink': '/api/customers/s/' + field + '/' + query + '?page=' + str(previousPage)})
 
+@api_view(['GET'])
+def housing_search(request, field, query):
+    """
+    Retrieve customers by query.
+    """
+    if request.method == 'GET':
+        nextPage = 1
+        previousPage = 1
+        q_objects = Q()
+        houses = None
+        if field == "All":
+            q1 = (Q() | Q(username__contains=query) | Q(email__contains=query))
+            #h1 = Housing.objects.filter(owner__in=User.objects.filter(q1))
+            q2 = (Q() | Q(rent__lte=float(query)) | Q(address__contains=query) | Q(owner__in=User.objects.filter(q1)))
+            h2 = Housing.objects.filter(q2)
+            houses =  h2
+        elif field == "Landord":
+            q_objects |= Q(username__contains=query) 
+            houses = Housing.objects.filter(owner__in=User.objects.filter(q_objects))
+        elif field == "Rent":
+            q_objects |= Q(rent__lte=float(query))
+            houses = Housing.objects.filter(q_objects)
+        elif field == "Email":
+            q_objects |= Q(email__contains=query)
+            houses = Housing.objects.filter(owner__in=User.objects.filter(q_objects))
+        elif field == "Address":
+            q_objects |= Q(address__contains=query)
+            houses = Housing.objects.filter(q_objects)
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(houses, 5)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+
+        serializer = HousingSerializer(data, context={'request': request}, many=True)
+        if data.has_next():
+            nextPage = data.next_page_number()
+        if data.has_previous():
+            previousPage = data.previous_page_number()
+
+        return Response({'data': serializer.data, 'count': paginator.count, 'numpages': paginator.num_pages,
+                         'nextlink': '/api/housings/s/' + field + '/' + query + '?page=' + str(nextPage),
+                         'prevlink': '/api/housings/s/' + field + '/' + query + '?page=' + str(previousPage)})
 
 @api_view(['GET'])
 def current_user(request):

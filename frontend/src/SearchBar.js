@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import CustomersService  from  './CustomersService';
-import CustomersList from "./CustomersList";
+
 
 class SearchBar extends Component {
     constructor(props, context) {

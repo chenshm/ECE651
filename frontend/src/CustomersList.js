@@ -16,8 +16,10 @@ class  CustomersList  extends  Component {
         this.prevPage  =  this.prevPage.bind(this);
         this.nextPage  =  this.nextPage.bind(this);
         this.handleDelete  =  this.handleDelete.bind(this);
+        this.props.changefield();
     }
     componentDidMount() {
+        
         var  self  =  this;
         customersService.getCustomers().then(function (result) {
             self.setState({ customers:  result.data, nextPageURL:  result.nextlink, prevPageURL: result.prevlink})
@@ -60,6 +62,7 @@ class  CustomersList  extends  Component {
         });
     }
     render() {
+        
         return (
         <div  className="customers--list">
             <table  className="table">

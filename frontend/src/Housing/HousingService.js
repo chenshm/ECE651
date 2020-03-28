@@ -37,4 +37,8 @@ export default class HousingService{
         const url = `${API_URL}/api/housings/${housing.pk}`;
         return axios.put(url,housing,{ headers: {Authorization: `JWT ${localStorage.getItem('token')}`} });
     }
+    searchHousing(query, field){
+        const url = `${API_URL}/api/housings/s/${field}/${query}`;
+        return axios.get(url,{ headers: {Authorization: `JWT ${localStorage.getItem('token')}`} }).then(response => response.data);
+    }
 }
