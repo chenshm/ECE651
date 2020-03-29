@@ -41,7 +41,7 @@ class CustomerCreateUpdate extends Component {
             "description": this.refs.description.value
         }          
         ).then((result)=>{
-          alert("Customer created!");
+          alert("Agent created!");
           this.props.history.push('/')
         }).catch(()=>{
           alert('There was an error! Please re-check your form.');
