@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { render } from '@testing-library/react';
 import renderer from  "react-test-renderer";
 import CustomersList from "./CustomersList";
-
+import nock from 'nock'; 
 import Enzyme, { shallow,mount } from 'enzyme';
 
 describe('CustomersList', () => {
@@ -14,12 +14,12 @@ describe('CustomersList', () => {
   
     didMountSpy = jest.spyOn(CustomersList.prototype, 'componentDidMount');
    it('renders without crashing', () => {
-      mount(<CustomersList />);
+      mount(<CustomersList changefield={()=>{return true;}} />);
     });
     it('check props',() => {
         const c=[{"pk":1,"first_name":"shimeng","last_name":"chen","email":"844650898@qq.com","phone":"123456789","address":"white house","description":"waterloo"}];
         const state={'customers': c,'nextPageURL':  'alowha'}
-        const wrapper=mount(<CustomersList  />);
+        const wrapper=mount(<CustomersList  changefield={()=>{return true;}}/>);
         wrapper.setState(state);
         //expect(wrapper.props().customers).toEqual(state['customers']);
         expect(wrapper.state('customers')).toEqual(state['customers']);
@@ -29,7 +29,7 @@ describe('CustomersList', () => {
     it('check table',() => {
         const cols = ['#','First Name','Last Name','Phone','Email','Address','Description','Actions'];
         const state={'customers': [{"pk":1,"first_name":"shimeng","last_name":"chen","email":"844650898@qq.com","phone":"123456789","address":"white house","description":"waterloo"}],'nextPageURL':  'alowha'};
-        const wrapper=mount(<CustomersList  />);
+        const wrapper=mount(<CustomersList  changefield={()=>{return true;}}/>);
         wrapper.setProps(state);
         const table = wrapper.find('table');
         expect(table).toHaveLength(1);
@@ -48,11 +48,26 @@ describe('CustomersList', () => {
         //console.log(rows);
         //expect(rows).toHaveLength(1);
     });
-    test('should call did mount', () => {
+    /*test('should call did mount', () => {
+      const scope = nock('http://localhost:8000') 
+      .get('/api/customers/')
+      .reply(200, { customers:  [], nextPageURL:  "" }, 
+      { 
+        'Access-Control-Allow-Origin': '*', 
+        'Content-type': 'application/json' 
+      }); 
+      const div = document.createElement('div');
+      ReactDOM.render(<CustomersList queryText=''
+      field='All' />, div);
+      ReactDOM.unmountComponentAtNode(div);
+
         expect(didMountSpy).toHaveBeenCalledTimes(0);   
-        const wrapper=mount(<CustomersList  />);
+        const wrapper=shallow(<CustomersList queryText=''
+          field='All' />);
         expect(didMountSpy).toHaveBeenCalledTimes(1);
-      });
+
+
+      });*/
 
 });
 

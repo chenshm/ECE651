@@ -10,6 +10,7 @@ class CustomerCreateUpdate extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCreate = this.handleCreate.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.props.setType();
       }
 
       componentDidMount(){
@@ -40,7 +41,7 @@ class CustomerCreateUpdate extends Component {
             "description": this.refs.description.value
         }          
         ).then((result)=>{
-          alert("Customer created!");
+          alert("Agent created!");
           this.props.history.push('/')
         }).catch(()=>{
           alert('There was an error! Please re-check your form.');

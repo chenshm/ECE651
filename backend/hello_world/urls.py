@@ -28,6 +28,8 @@ urlpatterns = [
     path('api/customers/<int:pk>',views.customers_detail,name="customers_detail"),
     path('api/housings/',views.housing_list,name="housing_list"),
     path('api/housings/<int:pk>',views.housing_detail,name="housing_detail"),
+    path('api/housings/s/<str:field>/<str:query>',views.housing_search,name="housing_search"),
+    path('api/customers/s/<str:field>/<str:query>', views.customers_search, name="customers_search"),
     #url(r'^api/customers/$', views.customers_list),
     #url(r'^api/customers/(?P<pk>[0-9]+)$', views.customers_detail),
     #re_path(".*", TemplateView.as_view(template_name="index.html")),
