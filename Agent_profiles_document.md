@@ -1,4 +1,4 @@
-# Documentation of Customer Profile
+# Documentation of Agent Profile
 - [Introduction](#intro)
 - [Requirement](#req)
 - [API](#api)
@@ -6,20 +6,20 @@
 
 
 ## <a name="intro">Introduction</a>
-This is the documentation of customer profile branch. This branch
-implements the addition, deletion and modification of the customer
+This is the documentation of agent profile branch. This branch
+implements the addition, deletion and modification of the agent
 profile. Please refer to this as a guideline. 
 
 ## <a name="req">Requirement</a>
 ### Functional Requirement
-- User shall be able to create a new customer profile including first name,
+- User shall be able to create a new agent profile including first name,
 last name, phone number, password, e-mail, address and description
 - User shall be able to log into their account using phone number and password
 - User shall be able to logout
 
 ### Non-functional Requirement
 - App shall be able to auto login if user is willing to
-- Only admin can edit(delete or modify) the customer profiles
+- Only admin can edit(delete or modify) the agent profiles
 - Admin shall be able to login/logout
 
 ## <a name="intro">API</a>
@@ -29,7 +29,7 @@ last name, phone number, password, e-mail, address and description
 GET
 
 #### Function
-List all the customers in the database
+List all the agent in the database
 
 #### Parameter
 None
@@ -70,7 +70,7 @@ None
 POST
 
 #### Function
-Create a new customer
+Create a new agent
 
 #### Parameter
 
@@ -98,7 +98,7 @@ None
 GET
 
 #### Function
-Retrieve a customer by id/pk.
+Retrieve a agent by id/pk.
 
 #### Parameter
 
@@ -127,7 +127,7 @@ Retrieve a customer by id/pk.
 PUT
 
 #### Function
-Update a customer by id/pk.
+Update a agent by id/pk.
 
 #### Parameter
 | Attribute | Type     | Required | Description|
@@ -162,7 +162,7 @@ Update a customer by id/pk.
 DELETE
 
 #### Function
-Delete a customer by id/pk.
+Delete a agent by id/pk.
 
 #### Parameter
 
@@ -181,6 +181,6 @@ Delete a customer by id/pk.
 ### Default
 ![alt text](CUSTOMERS_UI.png "CUSTOMER_UI")
 
-### Create Customer
+### Create Agent
 
 ![alt text](CREATE_CUSTOMER_UI.png "CREATE_CUSTOMER_UI")
