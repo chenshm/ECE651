@@ -154,8 +154,8 @@ class  Capp  extends  Component {
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <Link  className="dropdown-item" to={{ pathname: "/house/create",pk:this.props.pk}}>Create Housing</Link>
                             <Link  className="dropdown-item" to={{ pathname: "/housing"}}>Housing List</Link>
-                            <Link  className="dropdown-item" to={{ pathname: "/"}}>Customer List</Link>
-                            <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Customer</Link>
+                            <Link  className="dropdown-item" to={{ pathname: "/"}}>Agent List</Link>
+                            <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Agent</Link>
 
                                 <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
