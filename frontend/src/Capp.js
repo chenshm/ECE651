@@ -19,12 +19,13 @@ class  Capp  extends  Component {
         this.state = {
             queryText: '',
             field: 'All',
-            type:'customer',
+            type:'',
         };
         //this.handleCustomerSearch = this.handleCustomerSearch.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.tocustomer = this.tocustomer.bind(this);
-        this.tohousing = this.tohousing.bind(this);
+        this.setTypeCustomer = this.setTypeCustomer.bind(this);
+        this.setTypeHousing = this.setTypeHousing.bind(this);
+        this.setTypeNull = this.setTypeNull.bind(this);
     }
     /*handleCustomerSearch(query, field){
         this.setState(
@@ -49,7 +50,7 @@ class  Capp  extends  Component {
         );*/
         event.preventDefault();
     }
-    tocustomer(event){
+    setTypeCustomer(event){
         this.setState(prevstate => {
             const newState = { ...prevstate };
             newState['type'] = 'customer';
@@ -57,7 +58,7 @@ class  Capp  extends  Component {
           });
           //event.preventDefault();
     }
-    tohousing(event){
+    setTypeHousing(event){
         //console.log("alow ha");
         this.setState(prevstate => {
             const newState = { ...prevstate };
@@ -67,10 +68,19 @@ class  Capp  extends  Component {
           //this.setState({type:'housing'});
           //event.preventDefault();
     }
+    setTypeNull(event){
+        this.setState(prevstate => {
+            const newState = { ...prevstate };
+            newState['type'] = '';
+            return newState;
+          });
+    }
+
     render() {
 
         let my_housing=null;
         let fields=null;
+        let searchBar=null;
         if(this.props.group==='landord'){
             my_housing=(
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -107,6 +117,17 @@ class  Capp  extends  Component {
                 </select>
             );
         }
+        if (this.state.type !== ''){
+            searchBar = (
+                <form className="form-inline my-2 my-lg-0" onSubmit={this.handleSubmit}>
+
+                    {fields}
+                    <input className="form-control  mr-sm-2" type="search" ref='queryText' placeholder="Search..."
+                           aria-label="Search"/>
+                    <button className="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            );
+        }
         var pk=this.props.username;
 
         return (
@@ -121,36 +142,32 @@ class  Capp  extends  Component {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#"onClick={this.tocustomer} >Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/housing" onClick={this.setTypeHousing} >Home <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" onClick={this.tohousing} href="#">Link</a>
-                        </li>
+                        {/*<li class="nav-item">*/}
+                        {/*    <a class="nav-link" onClick={this.tocustomer} href="#">Link</a>*/}
+                        {/*</li>*/}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            CUSTOMERS
+                            OPTIONS
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <Link  className="dropdown-item" to={{ pathname: "/house/create",pk:this.props.pk}}>Create Housing</Link>
-                            <Link  className="dropdown-item"  to={{ pathname: "/housing"}}>Housing List</Link>
+                            <Link  className="dropdown-item" to={{ pathname: "/housing"}}>Housing List</Link>
                             <Link  className="dropdown-item" to={{ pathname: "/"}}>Customer List</Link>
                             <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Customer</Link>
 
-                            <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Disabled</a>
-                        </li>
+                        {/*<li class="nav-item">*/}
+                        {/*    <a class="nav-link disabled" href="#">Disabled</a>*/}
+                        {/*</li>*/}
                     </ul>
 
-                    <form class="form-inline my-2 my-lg-0" onSubmit={this.handleSubmit}>
- 
-                        {fields}
-                         <input className="form-control  mr-sm-2" type="search" ref='queryText' placeholder="Search..."  aria-label="Search"/>
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    {searchBar}
+
                     <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                              {this.props.username}
@@ -165,19 +182,18 @@ class  Capp  extends  Component {
                     <div  className="content">
                         <switch>
 
-                            <Route  path="/customer/:pk/" isAuthed={pk} render={(props,pk) => <CustomerCreateUpdate {...props} {...pk} /> } />
-                            
-                            <Route  path="/customer/"  exact  render={(props) => <CustomerCreateUpdate {...props} isAuthed={true} />}   />
-                            <Route  path="/house/create"  exact  component={HousingCreateUpdate}  />
-                            <Route  path="/housing/:pk"  exact  component={HousingCreateUpdate}  />
-                            <Route  path="/myhousing/"  exact  component={MyhousingList}  />
+                            <Route  path="/customer/:pk/" isAuthed={pk} render={(props,pk) => <CustomerCreateUpdate {...props} {...pk} setType={this.setTypeNull}/> } />
+                            <Route  path="/customer/"  exact  render={(props) => <CustomerCreateUpdate {...props} isAuthed={true} setType={this.setTypeNull}/>}   />
+                            <Route  path="/house/create"  exact  render={(props) => <HousingCreateUpdate {...props} setType={this.setTypeNull}/>} />
+                            <Route  path="/housing/:pk"  exact  render={(props, pk) => <HousingCreateUpdate {...props}{...pk} setType={this.setTypeNull}/>} />
+                            <Route  path="/myhousing/"  exact  render={(props) => <MyhousingList {...props} setType={this.setTypeHousing}/>}  />
                             <Route
                                 exact path="/housing/"
                                 render={(props) =>
                                     <HousingList {...props}
                                                    queryText={this.state.queryText}
                                                    field={this.state.field}
-                                                   changefield={this.tohousing}
+                                                   setType={this.setTypeHousing}
                                     />}
                             />
                             <Route
@@ -186,7 +202,7 @@ class  Capp  extends  Component {
                                     <CustomersList {...props}
                                                    queryText={this.state.queryText}
                                                    field={this.state.field}
-                                                   changefield={this.tocustomer}
+                                                   setType={this.setTypeCustomer}
                                     />}
                             />
                         </switch>

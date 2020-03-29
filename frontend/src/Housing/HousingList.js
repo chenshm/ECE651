@@ -14,7 +14,7 @@ class HousingList extends Component {
         this.prevPage  =  this.prevPage.bind(this);
         this.nextPage  =  this.nextPage.bind(this);
         this.handleDelete  =  this.handleDelete.bind(this);
-        this.props.changefield();
+        this.props.setType();
     }
     componentDidMount(){
         var self = this;
@@ -78,7 +78,7 @@ class HousingList extends Component {
                     <tr  key={c.pk}>
                         <td>{c.pk}  </td>
                         <td>{c.address}</td>
-                        <td>{c.rent}</td>
+                        <td>{c.rent}$</td>
                         <td>{c.owner.username}</td>
                         <td>{c.owner.email}</td>
   

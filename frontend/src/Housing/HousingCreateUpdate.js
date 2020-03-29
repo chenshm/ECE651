@@ -9,6 +9,7 @@ class HousingCreateUpdate extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCreate = this.handleCreate.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.props.setType();
     }
     componentDidMount(){
         const { match: { params } } = this.props;

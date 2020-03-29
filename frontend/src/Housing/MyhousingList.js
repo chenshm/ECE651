@@ -14,6 +14,7 @@ class MyhousingList extends Component {
         this.prevPage  =  this.prevPage.bind(this);
         this.nextPage  =  this.nextPage.bind(this);
         this.handleDelete  =  this.handleDelete.bind(this);
+        this.props.setType();
     }
     componentDidMount(){
         var self = this;
