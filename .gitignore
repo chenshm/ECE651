@@ -1,7 +1,3 @@
 *.pyc
-<<<<<<< HEAD
 *.pyo
 __pycache__
-=======
-
->>>>>>> 3-search-function
