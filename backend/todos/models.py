@@ -28,6 +28,7 @@ class Housing(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     rent = models.FloatField(blank=False, null=False)
     address = models.TextField(blank=True, null=False)
+    image = models.ImageField(upload_to='housing_images', default='')
 
     def __str__(self):
         return "(" + self.owner.username + ")" + self.address
