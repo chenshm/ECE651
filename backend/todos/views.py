@@ -33,7 +33,7 @@ def housing_list(request):
         nextPage = 1
         previousPage = 1
         page = request.GET.get('page', 1)
-        paginator = Paginator(housings, 5)
+        paginator = Paginator(housings, 9)
         try:
             data = paginator.page(page)
         except PageNotAnInteger:
@@ -224,7 +224,7 @@ def housing_search(request, field, query):
             houses = Housing.objects.filter(q_objects)
 
         page = request.GET.get('page', 1)
-        paginator = Paginator(houses, 5)
+        paginator = Paginator(houses, 9)
         try:
             data = paginator.page(page)
         except PageNotAnInteger:
