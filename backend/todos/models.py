@@ -23,12 +23,15 @@ class Customer(models.Model):
     def __str__(self):
         return self.first_name
 
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/housing_images/user_<id>/<filename>
+    return 'housing_images/user_{0}/{1}'.format(instance.owner.id, filename)
 
 class Housing(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     rent = models.FloatField(blank=False, null=False)
     address = models.TextField(blank=True, null=False)
-    image = models.ImageField(upload_to='housing_images', default='')
+    image = models.ImageField(upload_to=user_directory_path, default='')
 
     def __str__(self):
         return "(" + self.owner.username + ")" + self.address

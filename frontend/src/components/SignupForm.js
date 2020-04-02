@@ -37,7 +37,7 @@ class SignupForm extends React.Component {
                 placeholder="Username" 
                 type="text"         
                 value={this.state.username}
-                onChange={this.handle_change}/>
+                onChange={this.handle_change} required/>
             </div>
             <div class="form-group">
               <label htmlFor="password">Password</label>
@@ -48,6 +48,7 @@ class SignupForm extends React.Component {
               type="password"
               value={this.state.password}
               onChange={this.handle_change}
+              required
             />
             </div>
             <div class="form-group">

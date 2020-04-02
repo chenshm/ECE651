@@ -72,8 +72,11 @@ class HousingList extends Component {
                             return(
                                 <div className='card'>
                                     <h1>{c.address}</h1>
+                                    <div className='image-container' >
+                                        <img src={c.image} alt=""/>
+                                    </div>
                                     <p>
-                                        <div className='contact' style={{float: 'left'}}>
+                                        <div className='contact-label' style={{float: 'left'}}>
                                             {contact}
                                         </div>
                                         <div className="rent-label" >{c.rent}$</div>

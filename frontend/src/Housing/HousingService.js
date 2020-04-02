@@ -30,12 +30,22 @@ export default class HousingService{
     }
     createHousing(housing){
         const url = `${API_URL}/api/housings/`;
-        return axios.post(url,housing,{ headers: {Authorization: `JWT ${localStorage.getItem('token')}`} });
+        return axios.post(url,housing,{
+            headers: {
+                Authorization: `JWT ${localStorage.getItem('token')}`,
+                'content-type': 'multipart/form-data',
+            }
+        });
     }
     updateHousing(housing){
         //console.log(housing);
         const url = `${API_URL}/api/housings/${housing.pk}`;
-        return axios.put(url,housing,{ headers: {Authorization: `JWT ${localStorage.getItem('token')}`} });
+        return axios.put(url,housing,{
+            headers: {
+                Authorization: `JWT ${localStorage.getItem('token')}`,
+                'content-type': 'multipart/form-data',
+            }
+        });
     }
     searchHousing(query, field){
         const url = `${API_URL}/api/housings/s/${field}/${query}`;
