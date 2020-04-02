@@ -77,7 +77,7 @@ class  Capp  extends  Component {
     }
 
     render() {
-
+        let options=null;
         let my_housing=null;
         let fields=null;
         let searchBar=null;
@@ -88,15 +88,17 @@ class  Capp  extends  Component {
             <Link  className="dropdown-item" to={{ pathname: "/house/create",pk:this.props.pk}}>Create Housing</Link>
             <Link  className="dropdown-item" to={{ pathname: "/myhousing",pk:this.props.pk}}>My Housing List</Link>
             </div>);
-
+            options=(
+                <Link  className="dropdown-item" to={{ pathname: "/house/create",pk:this.props.pk}}>Create Housing</Link>
+            );
         }else{
             my_housing=(
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <Link  className="dropdown-item" onClick={this.props.handle_logout} to={{ pathname: "/"}}>Login out</Link>
             </div>);
-        };
+        }
         if(this.state.type === 'customer' ){
-            fields=(                            
+            fields=(
                 <select className="form-control" ref='field'>
                 <option>All</option>
                 <option>Name</option>
@@ -152,13 +154,10 @@ class  Capp  extends  Component {
                             OPTIONS
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <Link  className="dropdown-item" to={{ pathname: "/house/create",pk:this.props.pk}}>Create Housing</Link>
-                            <Link  className="dropdown-item" to={{ pathname: "/housing"}}>Housing List</Link>
-                            <Link  className="dropdown-item" to={{ pathname: "/"}}>Agent List</Link>
-                            <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Agent</Link>
-
-                                <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                                {options}
+                                <Link  className="dropdown-item" to={{ pathname: "/housing"}}>Housing List</Link>
+                                <Link  className="dropdown-item" to={{ pathname: "/"}}>Agent List</Link>
+                                <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Agent</Link>
                             </div>
                         </li>
                         {/*<li class="nav-item">*/}
@@ -173,11 +172,11 @@ class  Capp  extends  Component {
                              {this.props.username}
                             </a>
                             {my_housing}
-                            
+
                      </li>
                 </div>
             </nav>
-                    
+
 
                     <div  className="content">
                         <switch>
@@ -208,9 +207,9 @@ class  Capp  extends  Component {
                         </switch>
                     </div>
 
-                
+
             </div>
-            
+
         </BrowserRouter>
         );
 

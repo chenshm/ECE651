@@ -89,19 +89,19 @@ class CustomerCreateUpdate extends Component {
 
             <label>
               First Name:</label>
-              <input className="form-control" type="text" ref='firstName' />
+              <input className="form-control" type="text" ref='firstName' required/>
 
             <label>
               Last Name:</label>
-              <input className="form-control" type="text" ref='lastName'/>
+              <input className="form-control" type="text" ref='lastName' required/>
 
             <label>
               Phone:</label>
-              <input className="form-control" type="text" ref='phone' />
+              <input className="form-control" type="text" ref='phone' required/>
 
             <label>
               Email:</label>
-              <input className="form-control" type="text" ref='email' />
+              <input className="form-control" type="email" ref='email' required/>
 
             <label>
               Address:</label>

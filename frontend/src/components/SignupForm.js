@@ -6,6 +6,7 @@ class SignupForm extends React.Component {
   state = {
     username: '',
     password: '',
+    email: '',
     groups: "tenant",
   };
 
@@ -50,6 +51,16 @@ class SignupForm extends React.Component {
               onChange={this.handle_change}
               required
             />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                  name="email"
+                  className="form-control"
+                  placeholder="Email"
+                  type="email"
+                  value={this.state.email}
+                  onChange={this.handle_change} required/>
             </div>
             <div class="form-group">
               <div class="form-check form-check-inline">
