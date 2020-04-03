@@ -135,8 +135,12 @@ class  Capp  extends  Component {
         return (
         <BrowserRouter>
             <div  className="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">Too young too simple</a>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div className="logo-container">
+                    <a href="/housing">
+                        <img src={require('./logo.png')} alt=""/>
+                    </a>
+                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -156,7 +160,7 @@ class  Capp  extends  Component {
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {options}
                                 <Link  className="dropdown-item" to={{ pathname: "/housing"}}>Housing List</Link>
-                                <Link  className="dropdown-item" to={{ pathname: "/"}}>Agent List</Link>
+                                <Link  className="dropdown-item" to={{ pathname: "/agent"}}>Agent List</Link>
                                 <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Agent</Link>
                             </div>
                         </li>
@@ -182,6 +186,13 @@ class  Capp  extends  Component {
                         <switch>
 
                             <Route  path="/customer/:pk/" isAuthed={pk} render={(props,pk) => <CustomerCreateUpdate {...props} {...pk} setType={this.setTypeNull}/> } />
+                            <Route  path="/agent"  exact  render={(props) =>
+                                    <CustomersList {...props}
+                                                   queryText={this.state.queryText}
+                                                   field={this.state.field}
+                                                   setType={this.setTypeCustomer}
+                                    />}
+                            />
                             <Route  path="/customer/"  exact  render={(props) => <CustomerCreateUpdate {...props} isAuthed={true} setType={this.setTypeNull}/>}   />
                             <Route  path="/house/create"  exact  render={(props) => <HousingCreateUpdate {...props} setType={this.setTypeNull}/>} />
                             <Route  path="/housing/:pk"  exact  render={(props, pk) => <HousingCreateUpdate {...props}{...pk} setType={this.setTypeNull}/>} />
@@ -198,10 +209,10 @@ class  Capp  extends  Component {
                             <Route
                                 exact path="/"
                                 render={(props) =>
-                                    <CustomersList {...props}
+                                    <HousingList {...props}
                                                    queryText={this.state.queryText}
                                                    field={this.state.field}
-                                                   setType={this.setTypeCustomer}
+                                                   setType={this.setTypeHousing}
                                     />}
                             />
                         </switch>

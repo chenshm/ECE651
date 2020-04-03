@@ -3,13 +3,17 @@
   box-sizing: border-box
 }
 
+body {
+  background-color: #f5f3ec;
+}
+
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Dosis', sans-serif;
   line-height: 1.6;
   color: #666;
-  /*background: #F6F6F6;*/
+
 }
 
 #root {
@@ -17,6 +21,14 @@ html {
   margin: 0 auto;
 }
 
+.logo-container {
+  margin: 0;
+  width: 20%;
+  height: 20%;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0;
+}
 
 img {
   display: block;
@@ -96,14 +108,13 @@ img {
 
 .image-container {
   position: relative;
-  /*padding: 0.5rem 0.5rem 56.25%;*/
   padding-bottom: 56.25%;
   box-sizing: border-box;
 }
 
 .card:hover {
   box-shadow: 2px 8px 45px rgba(0, 0, 0, .15);
-  transform: translate3D(0, -2px, 0);
+  transform: translate3D(0, -10px, 0);
 }
 
 @media screen and (min-width: 600px) {
