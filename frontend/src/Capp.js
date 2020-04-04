@@ -160,8 +160,8 @@ class  Capp  extends  Component {
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {options}
                                 <Link  className="dropdown-item" to={{ pathname: "/housing"}}>Housing List</Link>
-                                <Link  className="dropdown-item" to={{ pathname: "/agent"}}>Agent List</Link>
-                                <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Agent</Link>
+                                <Link  className="dropdown-item" to={{ pathname: "/request"}}>Request List</Link>
+                                <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Request</Link>
                             </div>
                         </li>
                         {/*<li class="nav-item">*/}
@@ -186,7 +186,7 @@ class  Capp  extends  Component {
                         <switch>
 
                             <Route  path="/customer/:pk/" isAuthed={pk} render={(props,pk) => <CustomerCreateUpdate {...props} {...pk} setType={this.setTypeNull}/> } />
-                            <Route  path="/agent"  exact  render={(props) =>
+                            <Route  path="/request"  exact  render={(props) =>
                                     <CustomersList {...props}
                                                    queryText={this.state.queryText}
                                                    field={this.state.field}
