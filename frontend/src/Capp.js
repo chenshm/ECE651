@@ -94,7 +94,7 @@ class  Capp  extends  Component {
         }else{
             my_housing=(
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <Link  className="dropdown-item" onClick={this.props.handle_logout} to={{ pathname: "/"}}>Login out</Link>
+            <Link  className="dropdown-item" onClick={this.props.handle_logout} to={{ pathname: "/"}}>Log out</Link>
             </div>);
         }
         if(this.state.type === 'customer' ){
