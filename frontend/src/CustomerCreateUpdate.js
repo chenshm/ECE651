@@ -41,8 +41,8 @@ class CustomerCreateUpdate extends Component {
             "description": this.refs.description.value
         }          
         ).then((result)=>{
-          alert("Agent created!");
-          this.props.history.push('/agent')
+          alert("Request created!");
+          this.props.history.push('/request')
         }).catch(()=>{
           alert('There was an error! Please re-check your form.');
         });
@@ -61,7 +61,7 @@ class CustomerCreateUpdate extends Component {
         ).then((result)=>{
           console.log(result);
           alert("Customer updated!");
-          this.props.history.push('/agent')
+          this.props.history.push('/request')
         }).catch(()=>{
           alert('There was an error! Please re-check your form.');
         });

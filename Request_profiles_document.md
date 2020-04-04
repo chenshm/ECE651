@@ -1,4 +1,4 @@
-# Documentation of Agent Profile
+# Documentation of Request Profile
 - [Introduction](#intro)
 - [Requirement](#req)
 - [API](#api)
@@ -6,20 +6,20 @@
 
 
 ## <a name="intro">Introduction</a>
-This is the documentation of agent profile branch. This branch
-implements the addition, deletion and modification of the agent
+This is the documentation of request profile branch. This branch
+implements the addition, deletion and modification of the request
 profile. Please refer to this as a guideline. 
 
 ## <a name="req">Requirement</a>
 ### Functional Requirement
-- User shall be able to create a new agent profile including first name,
+- User shall be able to create a new request profile including first name,
 last name, phone number, password, e-mail, address and description
 - User shall be able to log into their account using phone number and password
 - User shall be able to logout
 
 ### Non-functional Requirement
 - App shall be able to auto login if user is willing to
-- Only admin can edit(delete or modify) the agent profiles
+- Only admin can edit(delete or modify) the request profiles
 - Admin shall be able to login/logout
 
 ## <a name="intro">API</a>
@@ -29,7 +29,7 @@ last name, phone number, password, e-mail, address and description
 GET
 
 #### Function
-List all the agent in the database
+List all the request in the database
 
 #### Parameter
 None
@@ -70,7 +70,7 @@ None
 POST
 
 #### Function
-Create a new agent
+Create a new request
 
 #### Parameter
 
@@ -98,7 +98,7 @@ None
 GET
 
 #### Function
-Retrieve a agent by id/pk.
+Retrieve a request by id/pk.
 
 #### Parameter
 
@@ -127,7 +127,7 @@ Retrieve a agent by id/pk.
 PUT
 
 #### Function
-Update a agent by id/pk.
+Update a request by id/pk.
 
 #### Parameter
 | Attribute | Type     | Required | Description|
@@ -162,7 +162,7 @@ Update a agent by id/pk.
 DELETE
 
 #### Function
-Delete a agent by id/pk.
+Delete a request by id/pk.
 
 #### Parameter
 
@@ -181,6 +181,6 @@ Delete a agent by id/pk.
 ### Default
 ![alt text](CUSTOMERS_UI.png "CUSTOMER_UI")
 
-### Create Agent
+### Create Ruest
 
 ![alt text](CREATE_CUSTOMER_UI.png "CREATE_CUSTOMER_UI")
