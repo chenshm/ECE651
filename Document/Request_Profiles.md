@@ -180,6 +180,6 @@ Delete a request by id/pk.
 ### Default
 ![alt text](CUSTOMERS_UI.png "CUSTOMER_UI")
 
-### Create Ruest
+### Create Request
 
 ![alt text](CREATE_CUSTOMER_UI.png "CREATE_CUSTOMER_UI")
