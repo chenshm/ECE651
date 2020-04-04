@@ -1,4 +1,4 @@
-# Documentation of Request Profile
+# Document of Request Profile
 - [Introduction](#intro)
 - [Requirement](#req)
 - [API](#api)
@@ -6,23 +6,20 @@
 
 
 ## <a name="intro">Introduction</a>
-This is the documentation of request profile branch. This branch
+This is the document of request profile module. This module
 implements the addition, deletion and modification of the request
-profile. Please refer to this as a guideline. 
+profiles. Please refer to this as a guideline. 
 
 ## <a name="req">Requirement</a>
 ### Functional Requirement
-- User shall be able to create a new request profile including first name,
+- User shall be able to create a new request including first name,
 last name, phone number, password, e-mail, address and description
-- User shall be able to log into their account using phone number and password
-- User shall be able to logout
+- User can edit (delete or modify) the request posted by the user
 
 ### Non-functional Requirement
-- App shall be able to auto login if user is willing to
-- Only admin can edit(delete or modify) the request profiles
-- Admin shall be able to login/logout
+- Admin can edit(delete or modify) the request profiles
 
-## <a name="intro">API</a>
+## <a name="api">API</a>
 ### /api/customers/
 
 #### Request Method
@@ -38,27 +35,29 @@ None
 ```
 {
     'data': {
-                '0':{
-                        'pk': 1,
-                        'first_name': "shimeng",
-                        'last_name': "chen",
-                        'email': "844650898@qq.com",
-                        'phone': "123456789",
-                        'address': "white house",
-                        'description': "waterloo",
+                {
+                    'pk': 1,
+                    'first_name': "shimeng",
+                    'last_name': "chen",
+                    'email': "844650898@qq.com",
+                    'phone': "123456789",
+                    'address': "white house",
+                    'description': "waterloo",
                 },
-                '1':{
-                        'pk': 2,
-                        'first_name': "shimeng",
-                        'last_name': "chen",
-                        'email': "shimengchern@gmail.com",
-                        'phone': "2265812983",
-                        'address': "20 west",
-                        'description': "dt",
+                {
+                    'pk': 2,
+                    'first_name': "shimeng",
+                    'last_name': "chen",
+                    'email': "shimengchern@gmail.com",
+                    'phone': "2265812983",
+                    'address': "20 west",
+                    'description': "dt",
                 },
 
                 ......
-            },
+    },
+    'nextlink': "/api/customers/?page=3",
+    'prevlink': "/api/customers/?page=1",
 }
 ```
 
@@ -76,12 +75,12 @@ Create a new request
 
 | Attribute | Type     | Required | Description|
 | ---       |  ------  |--------- |----------- |
-| first_name|  string  | yes      |First name of the user|
-| last_name |  string  | yes      |Last name of the user|
-| email |  string  | yes      |Email address of the user|
-| phone |  string  | yes      |Phone number of the user|
-| address |  string  | no      |Address of the user|
-| description |  string  | no      |Additional description of the user, might be used for search|
+| first_name|  string  | yes      |First name of the requester|
+| last_name |  string  | yes      |Last name of the requester|
+| email |  string  | yes      |Email address of the requester|
+| phone |  string  | yes      |Phone number of the requester|
+| address |  string  | no      |Address of the requester|
+| description |  string  | no      |Additional description of the requester, might be used for search|
 
 
 
@@ -104,7 +103,7 @@ Retrieve a request by id/pk.
 
 | Attribute | Type     | Required | Description|
 | ---       |  ------  |--------- |----------- |
-| pk|  integer/string	  | yes      |Id or primary key of the user data|
+| pk|  integer/string	  | yes      |Id or primary key of the request|
 
 
 
@@ -132,13 +131,13 @@ Update a request by id/pk.
 #### Parameter
 | Attribute | Type     | Required | Description|
 | ---       |  ------  |--------- |----------- |
-| pk|  integer/string	  | yes      |Id or primary key of the user data|
-| first_name|  string  | yes      |First name of the user|
-| last_name |  string  | yes      |Last name of the user|
-| email |  string  | yes      |Email address of the user|
-| phone |  string  | yes      |Phone number of the user|
-| address |  string  | no      |Address of the user|
-| description |  string  | no      |Additional description of the user, might be used for search|
+| pk|  integer/string	  | yes      |Id or primary key of the request|
+| first_name|  string  | yes      |First name of the requester|
+| last_name |  string  | yes      |Last name of the requester|
+| email |  string  | yes      |Email address of the requester|
+| phone |  string  | yes      |Phone number of the requester|
+| address |  string  | no      |Address of the requester|
+| description |  string  | no      |Additional description of the requester, might be used for search|
 
 
 #### Response Example
@@ -168,7 +167,7 @@ Delete a request by id/pk.
 
 | Attribute | Type     | Required | Description|
 | ---       |  ------  |--------- |----------- |
-| pk|  integer/string	  | yes      |Id or primary key of the user data|
+| pk|  integer/string	  | yes      |Id or primary key of the request|
 
 
 #### Response Example
