@@ -14,12 +14,12 @@ describe('CustomersList', () => {
   
     didMountSpy = jest.spyOn(CustomersList.prototype, 'componentDidMount');
    it('renders without crashing', () => {
-      mount(<CustomersList changefield={()=>{return true;}} />);
+      mount(<CustomersList changefield={()=>{return true;}}  setType={()=>{return true;}}  />);
     });
     it('check props',() => {
         const c=[{"pk":1,"first_name":"shimeng","last_name":"chen","email":"844650898@qq.com","phone":"123456789","address":"white house","description":"waterloo"}];
         const state={'customers': c,'nextPageURL':  'alowha'}
-        const wrapper=mount(<CustomersList  changefield={()=>{return true;}}/>);
+        const wrapper=mount(<CustomersList  changefield={()=>{return true;}}  setType={()=>{return true;}}/>);
         wrapper.setState(state);
         //expect(wrapper.props().customers).toEqual(state['customers']);
         expect(wrapper.state('customers')).toEqual(state['customers']);
@@ -29,7 +29,7 @@ describe('CustomersList', () => {
     it('check table',() => {
         const cols = ['#','First Name','Last Name','Phone','Email','Address','Description','Actions'];
         const state={'customers': [{"pk":1,"first_name":"shimeng","last_name":"chen","email":"844650898@qq.com","phone":"123456789","address":"white house","description":"waterloo"}],'nextPageURL':  'alowha'};
-        const wrapper=mount(<CustomersList  changefield={()=>{return true;}}/>);
+        const wrapper=mount(<CustomersList  changefield={()=>{return true;}}  setType={()=>{return true;}}/>);
         wrapper.setProps(state);
         const table = wrapper.find('table');
         expect(table).toHaveLength(1);
