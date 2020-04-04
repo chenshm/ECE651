@@ -77,26 +77,28 @@ class  Capp  extends  Component {
     }
 
     render() {
-
+        let options=null;
         let my_housing=null;
         let fields=null;
         let searchBar=null;
         if(this.props.group==='landord'){
             my_housing=(
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <Link  className="dropdown-item" onClick={this.props.handle_logout} to={{ pathname: "/"}}>Login out</Link>
+            <Link  className="dropdown-item" onClick={this.props.handle_logout} to={{ pathname: "/"}}>Logout</Link>
             <Link  className="dropdown-item" to={{ pathname: "/house/create",pk:this.props.pk}}>Create Housing</Link>
             <Link  className="dropdown-item" to={{ pathname: "/myhousing",pk:this.props.pk}}>My Housing List</Link>
             </div>);
-
+            options=(
+                <Link  className="dropdown-item" to={{ pathname: "/house/create",pk:this.props.pk}}>Create Housing</Link>
+            );
         }else{
             my_housing=(
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <Link  className="dropdown-item" onClick={this.props.handle_logout} to={{ pathname: "/"}}>Login out</Link>
             </div>);
-        };
+        }
         if(this.state.type === 'customer' ){
-            fields=(                            
+            fields=(
                 <select className="form-control" ref='field'>
                 <option>All</option>
                 <option>Name</option>
@@ -133,8 +135,12 @@ class  Capp  extends  Component {
         return (
         <BrowserRouter>
             <div  className="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">Too young too simple</a>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div className="logo-container">
+                    <a href="/housing">
+                        <img src={require('./logo.png')} alt=""/>
+                    </a>
+                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -152,13 +158,10 @@ class  Capp  extends  Component {
                             OPTIONS
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <Link  className="dropdown-item" to={{ pathname: "/house/create",pk:this.props.pk}}>Create Housing</Link>
-                            <Link  className="dropdown-item" to={{ pathname: "/housing"}}>Housing List</Link>
-                            <Link  className="dropdown-item" to={{ pathname: "/"}}>Agent List</Link>
-                            <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Agent</Link>
-
-                                <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                                {options}
+                                <Link  className="dropdown-item" to={{ pathname: "/housing"}}>Housing List</Link>
+                                <Link  className="dropdown-item" to={{ pathname: "/request"}}>Request List</Link>
+                                <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Request</Link>
                             </div>
                         </li>
                         {/*<li class="nav-item">*/}
@@ -173,16 +176,23 @@ class  Capp  extends  Component {
                              {this.props.username}
                             </a>
                             {my_housing}
-                            
+
                      </li>
                 </div>
             </nav>
-                    
+
 
                     <div  className="content">
                         <switch>
 
                             <Route  path="/customer/:pk/" isAuthed={pk} render={(props,pk) => <CustomerCreateUpdate {...props} {...pk} setType={this.setTypeNull}/> } />
+                            <Route  path="/request"  exact  render={(props) =>
+                                    <CustomersList {...props}
+                                                   queryText={this.state.queryText}
+                                                   field={this.state.field}
+                                                   setType={this.setTypeCustomer}
+                                    />}
+                            />
                             <Route  path="/customer/"  exact  render={(props) => <CustomerCreateUpdate {...props} isAuthed={true} setType={this.setTypeNull}/>}   />
                             <Route  path="/house/create"  exact  render={(props) => <HousingCreateUpdate {...props} setType={this.setTypeNull}/>} />
                             <Route  path="/housing/:pk"  exact  render={(props, pk) => <HousingCreateUpdate {...props}{...pk} setType={this.setTypeNull}/>} />
@@ -199,18 +209,18 @@ class  Capp  extends  Component {
                             <Route
                                 exact path="/"
                                 render={(props) =>
-                                    <CustomersList {...props}
+                                    <HousingList {...props}
                                                    queryText={this.state.queryText}
                                                    field={this.state.field}
-                                                   setType={this.setTypeCustomer}
+                                                   setType={this.setTypeHousing}
                                     />}
                             />
                         </switch>
                     </div>
 
-                
+
             </div>
-            
+
         </BrowserRouter>
         );
 

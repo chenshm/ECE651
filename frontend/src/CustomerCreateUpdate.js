@@ -41,8 +41,8 @@ class CustomerCreateUpdate extends Component {
             "description": this.refs.description.value
         }          
         ).then((result)=>{
-          alert("Agent created!");
-          this.props.history.push('/')
+          alert("Request created!");
+          this.props.history.push('/request')
         }).catch(()=>{
           alert('There was an error! Please re-check your form.');
         });
@@ -61,7 +61,7 @@ class CustomerCreateUpdate extends Component {
         ).then((result)=>{
           console.log(result);
           alert("Customer updated!");
-          this.props.history.push('/')
+          this.props.history.push('/request')
         }).catch(()=>{
           alert('There was an error! Please re-check your form.');
         });
@@ -89,19 +89,19 @@ class CustomerCreateUpdate extends Component {
 
             <label>
               First Name:</label>
-              <input className="form-control" type="text" ref='firstName' />
+              <input className="form-control" type="text" ref='firstName' required/>
 
             <label>
               Last Name:</label>
-              <input className="form-control" type="text" ref='lastName'/>
+              <input className="form-control" type="text" ref='lastName' required/>
 
             <label>
               Phone:</label>
-              <input className="form-control" type="text" ref='phone' />
+              <input className="form-control" type="text" ref='phone' required/>
 
             <label>
               Email:</label>
-              <input className="form-control" type="text" ref='email' />
+              <input className="form-control" type="email" ref='email' required/>
 
             <label>
               Address:</label>

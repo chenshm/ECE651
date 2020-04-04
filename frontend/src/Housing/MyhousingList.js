@@ -47,35 +47,56 @@ class MyhousingList extends Component {
     render(){
         return(
             <div  className="housings--list">
-            <table  className="table">
-                <thead  key="thead">
-                <tr>
-                    <th>#</th>
-                    <th>Address</th>
-                    <th>Rent</th>
-                    <th>Landlord</th>
-                    <th>Email</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {this.state.housings.map( c  =>
-                    <tr  key={c.pk}>
-                        <td>{c.pk}  </td>
-                        <td>{c.address}</td>
-                        <td>{c.rent}</td>
-                        <td>{c.owner.username}</td>
-                        <td>{c.owner.email}</td>
-                        <td>
-                        <button  onClick={(e)=>  this.handleDelete(e,c.pk) }> Delete</button>
-                        <Link to={{ pathname: "/housing/" + c.pk,pk:this.props.location.pk}}>Update</Link>
-                        </td>
-                    </tr>)}
-                </tbody>
-            </table>
-            <button  className="btn btn-primary"  onClick=  {  this.prevPage  }>Prev</button>
-            <button  className="btn btn-primary"  onClick=  {  this.nextPage  }>Next</button>
-        </div>
+                <div className='container'>
+                    {this.state.housings.map(c =>
+                        {
+                            return(
+                                <div className='card'>
+                                    <h1>{c.address}</h1>
+                                    <div className='image-container' >
+                                        <img src={c.image} alt=""/>
+                                    </div>
+                                    <p>
+                                        <div className='action-label'>
+                                            <Link to={{ pathname: "/housing/" + c.pk,pk:this.props.location.pk}}>Update</Link>
+                                            <button  onClick={(e)=>  this.handleDelete(e,c.pk) }> Delete</button>
+                                        </div>
+                                        <div className="rent-label" >{c.rent}$</div>
+                                    </p>
+                                </div>
+                            )
+                        }
+                    )}
+                </div>
+                {/*<table  className="table">*/}
+                {/*    <thead  key="thead">*/}
+                {/*    <tr>*/}
+                {/*        <th>#</th>*/}
+                {/*        <th>Address</th>*/}
+                {/*        <th>Rent</th>*/}
+                {/*        <th>Landlord</th>*/}
+                {/*        <th>Email</th>*/}
+                {/*        <th>Action</th>*/}
+                {/*    </tr>*/}
+                {/*    </thead>*/}
+                {/*    <tbody>*/}
+                {/*        {this.state.housings.map( c  =>*/}
+                {/*        <tr  key={c.pk}>*/}
+                {/*            <td>{c.pk}  </td>*/}
+                {/*            <td>{c.address}</td>*/}
+                {/*            <td>{c.rent}</td>*/}
+                {/*            <td>{c.owner.username}</td>*/}
+                {/*            <td>{c.owner.email}</td>*/}
+                {/*            <td>*/}
+                {/*            <button  onClick={(e)=>  this.handleDelete(e,c.pk) }> Delete</button>*/}
+                {/*            <Link to={{ pathname: "/housing/" + c.pk,pk:this.props.location.pk}}>Update</Link>*/}
+                {/*            </td>*/}
+                {/*        </tr>)}*/}
+                {/*    </tbody>*/}
+                {/*</table>*/}
+                <button  className="btn btn-primary"  onClick=  {  this.prevPage  }>Prev</button>
+                <button  className="btn btn-primary"  onClick=  {  this.nextPage  }>Next</button>
+            </div>
         );
     }
 }

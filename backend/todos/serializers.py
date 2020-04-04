@@ -42,13 +42,13 @@ class HousingSerializer(serializers.ModelSerializer):
     #    address = serializers.CharField(required=False, allow_blank=True, max_length=100)
     class Meta:
         model = Housing
-        fields = ['pk','owner','rent','address']
+        fields = ['pk','owner','rent','address','image']
         #fields = ('landord','email','rent','address')
 
 class HousingCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Housing
-        fields = ['pk','owner','rent','address']
+        fields = ['pk','owner','rent','address','image']
 
 class UserSerializerWithToken(serializers.ModelSerializer):
 
@@ -84,4 +84,4 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('pk','token', 'username', 'password','groups')
+        fields = ('pk','token', 'username', 'password', 'email', 'groups')
