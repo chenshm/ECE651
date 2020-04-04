@@ -84,7 +84,7 @@ class  Capp  extends  Component {
         if(this.props.group==='landord'){
             my_housing=(
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <Link  className="dropdown-item" onClick={this.props.handle_logout} to={{ pathname: "/"}}>Login out</Link>
+            <Link  className="dropdown-item" onClick={this.props.handle_logout} to={{ pathname: "/"}}>Logout</Link>
             <Link  className="dropdown-item" to={{ pathname: "/house/create",pk:this.props.pk}}>Create Housing</Link>
             <Link  className="dropdown-item" to={{ pathname: "/myhousing",pk:this.props.pk}}>My Housing List</Link>
             </div>);
