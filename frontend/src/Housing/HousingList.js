@@ -59,32 +59,56 @@ class HousingList extends Component {
         });
     }
     render(){
-        
+        let contact;
         return(
             <div  className="housings--list">
-            <table  className="table">
-                <thead  key="thead">
-                <tr>
-                    <th>#</th>
-                    <th>Address</th>
-                    <th>Rent</th>
-                    <th>Landlord</th>
-                    <th>Email</th>
+                <div className='container'>
+                    {this.state.housings.map(c =>
+                        {
+                            if (c.owner.email !== '')
+                                contact = <a href={'mailto:' + c.owner.email}>{c.owner.username}</a>;
+                            else
+                                contact = c.owner.username;
+                            return(
+                                <div className='card'>
+                                    <h1>{c.address}</h1>
+                                    <div className='image-container' >
+                                        <img src={c.image} alt=""/>
+                                    </div>
+                                    <p>
+                                        <div className='contact-label' style={{float: 'left'}}>
+                                            {contact}
+                                        </div>
+                                        <div className="rent-label" >{c.rent}$</div>
+                                    </p>
+                                </div>
+                            )
+                        }
+                    )}
+                </div>
+            {/*<table  className="table">*/}
+            {/*    <thead  key="thead">*/}
+            {/*    <tr>*/}
+            {/*        <th>#</th>*/}
+            {/*        <th>Address</th>*/}
+            {/*        <th>Rent</th>*/}
+            {/*        <th>Landlord</th>*/}
+            {/*        <th>Email</th>*/}
 
-                </tr>
-                </thead>
-                <tbody>
-                    {this.state.housings.map( c  =>
-                    <tr  key={c.pk}>
-                        <td>{c.pk}  </td>
-                        <td>{c.address}</td>
-                        <td>{c.rent}$</td>
-                        <td>{c.owner.username}</td>
-                        <td>{c.owner.email}</td>
-  
-                    </tr>)}
-                </tbody>
-            </table>
+            {/*    </tr>*/}
+            {/*    </thead>*/}
+            {/*    <tbody>*/}
+            {/*        {this.state.housings.map( c  =>*/}
+            {/*        <tr  key={c.pk}>*/}
+            {/*            <td>{c.pk}  </td>*/}
+            {/*            <td>{c.address}</td>*/}
+            {/*            <td>{c.rent}$</td>*/}
+            {/*            <td>{c.owner.username}</td>*/}
+            {/*            <td>{c.owner.email}</td>*/}
+
+            {/*        </tr>)}*/}
+            {/*    </tbody>*/}
+            {/*</table>*/}
             <button  className="btn btn-primary"  onClick=  {  this.prevPage  }>Prev</button>
             <button  className="btn btn-primary"  onClick=  {  this.nextPage  }>Next</button>
         </div>
