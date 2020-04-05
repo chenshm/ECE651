@@ -13,8 +13,8 @@ profiles. Please refer to this as a guideline.
 ## <a name="req">Requirement</a>
 ### Functional Requirement
 - All users shall be able to view the request list
-- A tenant shall be able to create a new request including first name
-last name, phone number, password, e-mail, address and description
+- A tenant shall be able to create a new request including first name, 
+last name, phone number, e-mail, address and description of their requirements for the house.
 - A tenant can edit (delete or modify) the request posted by him
 - A landlard should not be able to create or edit a request
 
