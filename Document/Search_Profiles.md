@@ -1,4 +1,4 @@
-# Document of Research Profile
+# Document of Search Profile
 - [Introduction](#intro)
 - [Requirement](#req)
 - [API](#api)
