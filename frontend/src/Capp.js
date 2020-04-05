@@ -96,6 +96,9 @@ class  Capp  extends  Component {
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <Link  className="dropdown-item" onClick={this.props.handle_logout} to={{ pathname: "/"}}>Log out</Link>
             </div>);
+            options=(
+                <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Request</Link>
+            );
         }
         if(this.state.type === 'customer' ){
             fields=(
@@ -161,7 +164,6 @@ class  Capp  extends  Component {
                                 {options}
                                 <Link  className="dropdown-item" to={{ pathname: "/housing"}}>Housing List</Link>
                                 <Link  className="dropdown-item" to={{ pathname: "/request"}}>Request List</Link>
-                                <Link  className="dropdown-item" to={{ pathname: "/customer",pk:this.props.pk}}>Create Request</Link>
                             </div>
                         </li>
                         {/*<li class="nav-item">*/}
