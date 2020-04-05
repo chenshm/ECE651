@@ -1,4 +1,4 @@
-# Document of User Authentication
+# Document of Housing Profile
 - [Introduction](#intro)
 - [Requirement](#req)
 - [API](#api)
@@ -6,16 +6,20 @@
 
 
 ## <a name="intro">Introduction</a>
-This is the document of `your content`. This module
-implements `your content`. Please refer to this as a guideline. 
+This is the document of housing profile module. This module
+implements displaying, creating, updating housing profiles. Please refer to this as a guideline. 
 
 ## <a name="req">Requirement</a>
 ### Functional Requirement
-- User shall be able to `do something`
+- All users shall be able to see all the housing profiles, including housing image, location, rents, landlord's name.
+- A landlord shall be able to create a new housing.
+- A tenant shall be able to send emails to a landlord through clicking on landlord's name.
+- Tenants shall not be able to create a new housing.
 
 
 ### Non-functional Requirement
 - Housing display should adapt to the screen size of the user
+- 6 housings shall be displayed on every single page.
 
 
 ## <a name="api">API</a>
