@@ -119,5 +119,5 @@ None
 
 ## <a name="ui">UI Design</a>
 ### Search
-![alt text](Search_UI.png "Search_UI")
+![alt text](./UI/Search_UI.png "Search_UI")
 
