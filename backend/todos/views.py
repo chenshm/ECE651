@@ -59,13 +59,13 @@ def housing_detail(request, pk):
     """
  Retrieve, update or delete a customer by id/pk.
  """
-    print("data1!!!!!! ",request.user)
-    print("data1!!!!!! ",request.data)
-    print("data1!!!!!! ",type(request.data))
+    #print("data1!!!!!! ",request.user)
+    #print("data1!!!!!! ",request.data)
+    #print("data1!!!!!! ",type(request.data))
     request.data['owner']=request.user.pk
     try:
         housing = Housing.objects.get(pk=pk)
-    except housing.DoesNotExist:
+    except Housing.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
@@ -73,7 +73,7 @@ def housing_detail(request, pk):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        print("alow ha: ",request.data)
+        #print("alow ha: ",request.data)
         serializer = HousingCreateSerializer(housing, data=request.data,context={'request': request})
         if serializer.is_valid():
             serializer.save()
@@ -247,13 +247,13 @@ def current_user(request):
     """
     Determine the current user by their token, and return their data
     """
-    print(request)
-    print(request.user)
-    print(request.user.pk)
+    #print(request)
+    #print(request.user)
+    #print(request.user.pk)
     #print(request.pk)
 
     serializer = UserSerializer(request.user)
-    print("current!!!!!!!:",request.user,serializer.data)
+    #print("current!!!!!!!:",request.user,serializer.data)
     return Response(serializer.data)
 
 
