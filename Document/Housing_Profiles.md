@@ -219,7 +219,7 @@ None
 
 ## <a name="ui">UI Design</a>
 ### Housing List
-![alt text](Housing_List_UI.png "Housing_List_UI")
+![alt text](./UI/Housing_List_UI.png "Housing_List_UI")
 
 ### Create Housing
-![alt text](Create_Housing_UI.png "Create_Housing_UI")
+![alt text](./UI/Create_Housing_UI.png "Create_Housing_UI")

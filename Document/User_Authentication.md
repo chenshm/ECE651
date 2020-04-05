@@ -127,8 +127,8 @@ None
 
 ## <a name="ui">UI Design</a>
 ### Login
-![alt text](Login_UI.png "Login_UI")
+![alt text](./UI/Login_UI.png "Login_UI")
 
 ### Sign up
-![alt text](Sign_Up_UI.png "Sign_Up_UI")
+![alt text](./UI/Sign_Up_UI.png "Sign_Up_UI")
 
