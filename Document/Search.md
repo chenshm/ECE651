@@ -18,7 +18,7 @@ implements the function of search. Please refer to this as a guideline.
 - The result should be returned in less than 1 seconds.
 
 ## <a name="api">API</a>
-### api/housings/s/&lt;str:field&gt;/&lt;str:query&gt;
+### /api/housings/s/&lt;str:field&gt;/&lt;str:query&gt;
 
 #### Request Method
 GET
@@ -60,8 +60,8 @@ Retrieve housings by query.
 
                 ......
     },
-    'nextlink': "/api/customers/?page=3",
-    'prevlink': "/api/customers/?page=1",
+    'nextlink': "/api/housings/s/your_field/your_query?page=3",
+    'prevlink': "/api/housings/s/your_field/your_query?page=1",
 }
 ```
 
@@ -70,7 +70,7 @@ None
 
 ---
 
-### api/customers/s/&lt;str:field&gt;/&lt;str:query&gt;
+### /api/customers/s/&lt;str:field&gt;/&lt;str:query&gt;
 #### Request Method
 POST
 
@@ -110,8 +110,8 @@ Retrieve requests by query.
 
                 ......
     },
-    'nextlink': "/api/customers/?page=3",
-    'prevlink': "/api/customers/?page=1",
+    'nextlink': "/api/customers/s/your_field/your_query?page=3",
+    'prevlink': "/api/customers/s/your_field/your_query?page=1",
 }
 ```
 #### Possible Error State

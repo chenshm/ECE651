@@ -87,7 +87,7 @@ Create a new request
 
 
 #### Response Example
-None
+- 201 CREATED
 
 #### Possible Error State
 - 400 BAD REQUEST
