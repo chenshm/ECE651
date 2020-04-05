@@ -127,6 +127,8 @@ None
 
 ## <a name="ui">UI Design</a>
 ### Login
+![alt text](Login_UI.png "Login_UI")
 
-### Create Ruest
+### Sign up
+![alt text](Sign_Up_UI.png "Sign_Up_UI")
 
