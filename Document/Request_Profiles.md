@@ -180,7 +180,7 @@ Delete a request by id/pk.
 
 ## <a name="ui">UI Design</a>
 ### Request List
-![alt text](./UI/Request_List_UI.png "Request_List_UI")
+![alt text](./UI/Ruqest_List_UI.png "Ruqest_List_UI")
 
 ### Create Request
 ![alt text](./UI/Create_Request_UI.png "Create_Request_UI")
