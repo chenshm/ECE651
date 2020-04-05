@@ -82,7 +82,7 @@ Create a new request
 | email |  string  | yes      |Email address of the requester|
 | phone |  string  | yes      |Phone number of the requester|
 | address |  string  | no      |Address of the requester|
-| description |  string  | no      |Additional description of the requester, might be used for search|
+| description |  string  | no      |Additional description of the housing, might be used for search|
 
 
 
@@ -139,7 +139,7 @@ Update a request by id/pk.
 | email |  string  | yes      |Email address of the requester|
 | phone |  string  | yes      |Phone number of the requester|
 | address |  string  | no      |Address of the requester|
-| description |  string  | no      |Additional description of the requester, might be used for search|
+| description |  string  | no      |Additional description of the housing, might be used for search|
 
 
 #### Response Example
