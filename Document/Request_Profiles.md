@@ -12,9 +12,11 @@ profiles. Please refer to this as a guideline.
 
 ## <a name="req">Requirement</a>
 ### Functional Requirement
-- User shall be able to create a new request including first name,
+- All users shall be able to view the request list
+- A tenant shall be able to create a new request including first name
 last name, phone number, password, e-mail, address and description
-- User can edit (delete or modify) the request posted by the user
+- A tenant can edit (delete or modify) the request posted by him
+- A landlard should not be able to create or edit a request
 
 ### Non-functional Requirement
 - Admin can edit(delete or modify) the request profiles
@@ -92,7 +94,7 @@ None
 
 ---
 
-### /api/customers/&lt;pk&gt;
+### /api/customers/&lt;int:pk&gt;
 #### Request Method
 GET
 
@@ -177,9 +179,8 @@ Delete a request by id/pk.
 - 404 NOT FOUND
 
 ## <a name="ui">UI Design</a>
-### Default
-![alt text](CUSTOMERS_UI.png "CUSTOMER_UI")
+### Request List
+![alt text](Request_List_UI.png "Request_List_UI")
 
 ### Create Request
-
-![alt text](CREATE_CUSTOMER_UI.png "CREATE_CUSTOMER_UI")
+![alt text](Create_Request_UI.png "Create_Request_UI")
