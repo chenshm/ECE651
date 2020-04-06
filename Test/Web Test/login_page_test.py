@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 
 WAITING_TIME = 5
 
+
 class login_page_test(unittest.TestCase):
     def setUp(self):
         # super().__init__()
