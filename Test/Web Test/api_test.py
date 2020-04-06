@@ -3,6 +3,7 @@ import unittest
 
 
 
+
 class TestStringMethods(unittest.TestCase):
     url = 'https://api.coindesk.com/v1/bpi/currentprice.json'
     reponse = requests.get(url)
